@@ -1,0 +1,6 @@
+SOURCE_URL=https://github.com/syuilo/misskey/archive/12.47.1.tar.gz
+SOURCE_SUM=59154273ae1f20187cc69689f4c03eb230c2d3a47e830affb0aaa57b71c49b0b
+SOURCE_SUM_PRG=sha256sum
+SOURCE_FORMAT=tar.gz
+SOURCE_IN_SUBDIR=true
+SOURCE_FILENAME=

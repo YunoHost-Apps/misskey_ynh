@@ -1,0 +1,16 @@
+[Unit]
+Description=__APP__ daemon running
+[Service]
+Type=simple
+User=__APP__
+ExecStart=/usr/local/bin/npm start
+WorkingDirectory=__FINALPATH__
+Environment="NODE_ENV=production"
+TimeoutSec=60
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=__APP__
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
