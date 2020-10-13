@@ -10,8 +10,7 @@
 > *This package allows you to install Misskey quickly and simply on a YunoHost server.
 If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
 
-<img src="https://藍.moe/aiart/31.png"  width="160" style="zoom: 200%;" />
-
+![](https://藍.moe/aiart/31.png)
 
 
 ## Overview
