@@ -1,17 +1,15 @@
 ![Misskey](https://raw.githubusercontent.com/syuilo/misskey/develop/assets/title.png)
 ================================================================
-# Misskey for Yunohost
+# Misskey for YunoHost
 
 [![Integration level](https://dash.yunohost.org/integration/misskey.svg)](https://dash.yunohost.org/appci/app/misskey) ![](https://ci-apps.yunohost.org/ci/badges/misskey.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/misskey.maintain.svg)
-[![Install misskey with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=misskey)
-
+[![Install misskey with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=misskey)
 
 
 > *This package allows you to install Misskey quickly and simply on a YunoHost server.
 If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
 
 ![](https://藍.moe/aiart/31.png)
-
 
 ## Overview
 
@@ -22,8 +20,6 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 ## Screenshots
 
 ![](https://raw.githubusercontent.com/syuilo/misskey/develop/assets/ss/user.jpg)
-
-
 
 ## Other instances to join
 
@@ -66,10 +62,8 @@ $ screen -r
 
 ---
 
-Developer info
-----------------
+## Developer info
 
-**Only if you want to use a testing branch for coding, instead of merging directly into master.**
 Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/misskey_ynh/tree/testing).
 
 To try the testing branch, please proceed like that.
