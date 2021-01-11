@@ -156,7 +156,7 @@ ynh_store_file_checksum --file="$final_path/.config/default.yml"
 #=================================================
 
 pushd "$final_path"
-	ynh_exec_warn_lessyarn add ts-node webpack
+	ynh_exec_warn_less yarn add ts-node webpack
 	ynh_exec_warn_less NODE_ENV=production yarn build
 	ynh_exec_warn_less yarn run init
 popd
