@@ -4,9 +4,11 @@ Description=__APP__ daemon running
 [Service]
 Type=simple
 User=__APP__
-ExecStart=/usr/local/bin/npm start
+Group=__APP__
 WorkingDirectory=__FINALPATH__
+Environment="PATH=__ENV_PATH__"
 Environment="NODE_ENV=production"
+ExecStart=__YNH_NPM__ start
 TimeoutSec=60
 StandardOutput=syslog
 StandardError=syslog

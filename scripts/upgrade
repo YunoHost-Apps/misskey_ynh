@@ -8,7 +8,6 @@
 
 source _common.sh
 source /usr/share/yunohost/helpers
-source ynh_add_swap
 
 #=================================================
 # LOAD SETTINGS
@@ -105,8 +104,10 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Upgrading dependencies..."
 
-ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
-ynh_install_app_dependencies $pkg_dependencies
+ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
+
+ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
+
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
@@ -149,10 +150,13 @@ ynh_replace_string --match_string="__PORT__" --replace_string="$port" --target_f
 #=================================================
 # Updating process MISSKEY
 #=================================================
+
 pushd "$final_path"
-	 yarn add ts-node webpack
-	 NODE_ENV=production yarn build
+	ynh_exec_warn_lessyarn add ts-node webpack
+	ynh_exec_warn_less NODE_ENV=production yarn build
+	ynh_exec_warn_less yarn run init
 popd
+
 
 #=================================================
 # SETUP SYSTEMD
@@ -188,7 +192,7 @@ chown -R $app: $final_path
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..."
 
-yunohost service add $app --description "$app service" ---log_type "systemd"
+yunohost service add $app --description "A interplanetary blogging platform" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE

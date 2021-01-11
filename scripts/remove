@@ -8,7 +8,6 @@
 
 source _common.sh
 source /usr/share/yunohost/helpers
-source ynh_add_swap
 
 #=================================================
 # LOAD SETTINGS
@@ -77,19 +76,8 @@ ynh_script_progression --message="Removing nginx web server configuration..." --
 # Remove the dedicated nginx config
 ynh_remove_nginx_config
 
-
 # Remove swap
 ynh_del_swap
-
-#=================================================
-# CLOSE A PORT
-#=================================================
-
-if yunohost firewall list | grep -q "\- $port$"
-then
-	ynh_script_progression --message="Closing port $port..."
-	ynh_exec_warn_less yunohost firewall disallow TCP $port
-fi
 
 #=================================================
 # SPECIFIC REMOVE
