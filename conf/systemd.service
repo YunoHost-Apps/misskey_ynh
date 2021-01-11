@@ -1,5 +1,6 @@
 [Unit]
 Description=__APP__ daemon running
+
 [Service]
 Type=simple
 User=__APP__

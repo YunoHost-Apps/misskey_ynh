@@ -3,7 +3,8 @@
   "id": "misskey",
   "packaging_format": 1,
   "description": {
-    "en": "Microblogging platform"
+    "en": "Microblogging platform",
+    "fr": "Microblogging platform"
   },
   "version": "12.47.1~ynh1",
   "url": "https://join.misskey.page/en/",

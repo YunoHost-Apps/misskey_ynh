@@ -1,18 +1,13 @@
 ![Misskey](https://raw.githubusercontent.com/syuilo/misskey/develop/assets/title.png)
-================================================================
 # Misskey for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/misskey.svg)](https://dash.yunohost.org/appci/app/misskey) ![](https://ci-apps.yunohost.org/ci/badges/misskey.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/misskey.maintain.svg)
+[![Integration level](https://dash.yunohost.org/integration/misskey.svg)](https://dash.yunohost.org/appci/app/misskey) ![](https://ci-apps.yunohost.org/ci/badges/misskey.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/misskey.maintain.svg)  
 [![Install misskey with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=misskey)
-
 
 > *This package allows you to install Misskey quickly and simply on a YunoHost server.
 If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
 
-![](https://藍.moe/aiart/31.png)
-
 ## Overview
-
 [Misskey](https://join.misskey.page/en/) is a forever evolving, sophisticated microblogging platform that support Fediverse. It provide another flavour to decentralised network. Why don't you take a short break from the hustle and bustle of the city, and dive into a new Internet?
 
 **Shipped version:** 12.47.1
@@ -35,8 +30,8 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 ####  Support
 
-LDAP supported : **No**
-Can the app be used by multiple users ? : **Yes**
+ * LDAP supported: **No**
+ * Can the app be used by multiple users?: **Yes**
 
 #### Using *screen* in case of disconnects
 
@@ -70,5 +65,5 @@ To try the testing branch, please proceed like that.
 ```
 sudo yunohost app install https://github.com/YunoHost-Apps/misskey_ynh/tree/testing --debug
 or
-sudo yunohost app upgrade REPLACEBYYOURAPP -u https://github.com/YunoHost-Apps/misskey_ynh/tree/testing --debug
+sudo yunohost app upgrade misskey -u https://github.com/YunoHost-Apps/misskey_ynh/tree/testing --debug
 ```
