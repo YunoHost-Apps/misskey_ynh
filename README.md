@@ -1,4 +1,3 @@
-![Misskey](https://raw.githubusercontent.com/syuilo/misskey/develop/assets/title.png)
 # Misskey for YunoHost
 
 [![Integration level](https://dash.yunohost.org/integration/misskey.svg)](https://dash.yunohost.org/appci/app/misskey) ![](https://ci-apps.yunohost.org/ci/badges/misskey.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/misskey.maintain.svg)  
