@@ -55,7 +55,7 @@ ynh_app_setting_set --app=$app --key=is_public --value=$is_public
 #=================================================
 # FIND AND OPEN A PORT
 #=================================================
-ynh_script_progression --message="Configuring firewall..."
+ynh_script_progression --message="Finding an available port..."
 
 # Find an available port
 port=$(ynh_find_port --port=3020)
@@ -101,18 +101,18 @@ ynh_setup_source --dest_dir="$final_path"
 #=================================================
 # ADD SWAP IF NEEDED
 #=================================================
-ynh_script_progression --message="Adding swap is needed..."
+# ynh_script_progression --message="Adding swap is needed..."
 
-total_memory=$(ynh_get_ram --total)
-swap_needed=0
+# total_memory=$(ynh_get_ram --total)
+# swap_needed=0
 
-if [ $total_memory -lt $MEMORY_NEEDED ]; then
-	# Need a minimum of 2.5Go of memory
-	swap_needed=$(($MEMORY_NEEDED - $total_memory))
-fi
+# if [ $total_memory -lt $MEMORY_NEEDED ]; then
+# 	# Need a minimum of 2.5Go of memory
+# 	swap_needed=$(($MEMORY_NEEDED - $total_memory))
+# fi
 
-ynh_script_progression --message="Adding $swap_needed Mo to swap..."
-ynh_add_swap --size=$swap_needed
+# ynh_script_progression --message="Adding $swap_needed Mo to swap..."
+# ynh_add_swap --size=$swap_needed
 
 #=================================================
 # NGINX CONFIGURATION
@@ -149,7 +149,7 @@ ynh_replace_string --match_string="__PORT__" --replace_string="$port" --target_f
 #=================================================
 
 # Calculate and store the config file checksum into the app settings
-ynh_store_file_checksum --file="$config"
+ynh_store_file_checksum --file="$final_path/.config/default.yml"
 
 #=================================================
 # INSTALLING MISKKEY

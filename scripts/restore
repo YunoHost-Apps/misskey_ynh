@@ -137,7 +137,7 @@ systemctl enable $app.service --quiet
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..."
 
-yunohost service add $app --description "A interplanetary blogging platform" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="A interplanetary blogging platform" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
