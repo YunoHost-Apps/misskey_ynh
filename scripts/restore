@@ -45,7 +45,6 @@ ynh_webpath_available --domain=$domain --path_url=$path_url \
 test ! -d $final_path \
 	|| ynh_die --message="There is already a directory: $final_path "
 
-#=================================================
 # STANDARD RESTORATION STEPS
 #=================================================
 # RESTORE THE NGINX CONFIGURATION
@@ -98,12 +97,11 @@ fi
 ynh_script_progression --message="Reinstalling dependencies..."
 
 # Define and install dependencies
-ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
+ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 
-ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
+ynh_install_app_dependencies $pkg_dependencies
 
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
-
 
 #=================================================
 # RESTORE THE POSTGRESQL DATABASE
@@ -112,7 +110,6 @@ ynh_script_progression --message="Restoring the PostgreSQL database..."
 
 ynh_psql_test_if_first_run
 ynh_psql_setup_db --db_user=$db_user --db_name=$db_name --db_pwd=$db_pwd
-ynh_psql_execute_as_root --sql="ALTER USER $db_user CREATEDB;"
 ynh_psql_execute_file_as_root --file="./db.sql" --database="$db_name"
 
 #=================================================
@@ -144,15 +141,17 @@ yunohost service add $app --description="A interplanetary blogging platform" --l
 #=================================================
 ynh_script_progression --message="Starting a systemd service..."
 
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log" --line_match="All workers started"
+ynh_systemd_action --service_name=$app --action=start --log_path="systemd" --line_match="All workers started"
+
+#=================================================
+# RELOAD NGINX AND PHP-FPM
+#=================================================
+ynh_script_progression --message="Reloading NGINX web server..." --weight=1
+
+ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT
 #=================================================
-#===============================================
-# RESTORE THE NGINX CONFIGURATION
-#=================================================
-
-ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
 
 ynh_script_progression --message="Restoration completed for $app"

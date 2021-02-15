@@ -9,7 +9,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 ## Overview
 [Misskey](https://join.misskey.page/en/) is a forever evolving, sophisticated microblogging platform that support Fediverse. It provide another flavour to decentralised network. Why don't you take a short break from the hustle and bustle of the city, and dive into a new Internet?
 
-**Shipped version:** 12.66.0
+**Shipped version:** 12.69.0
 
 ## Screenshots
 

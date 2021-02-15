@@ -21,8 +21,7 @@ path_url=$(ynh_app_setting_get --app=$app --key=path)
 is_public=$(ynh_app_setting_get --app=$app --key=is_public)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-
-db_pwd=$(ynh_app_setting_get --app=$app --key=db_pwd)
+db_pwd=$(ynh_app_setting_get --app=$app --key=psqlpwd)
 
 #=================================================
 # CHECK VERSION
@@ -56,6 +55,13 @@ if [ -z "$final_path" ]; then
 	ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 fi
 
+# Cleaning legacy permissions
+if ynh_legacy_permissions_exists; then
+	ynh_legacy_permissions_delete_all
+
+	ynh_app_setting_delete --app=$app --key=is_public
+fi
+
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
 #=================================================
@@ -77,7 +83,7 @@ ynh_abort_if_errors
 #=================================================
 ynh_script_progression --message="Stopping a systemd service..."
 
-ynh_systemd_action --service_name=$app --action="stop" --log_path="systemd" --line_match="Stopped"
+ynh_systemd_action --service_name=$app --action=stop --log_path=systemd --line_match="Stopped"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -104,16 +110,18 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Upgrading dependencies..."
 
-ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
+ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 
-ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
+ynh_install_app_dependencies $pkg_dependencies
 
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - 
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
 ynh_script_progression --message="Making sure dedicated system user exists..."
+
 # Create a dedicated user (if not existing)
 ynh_system_user_create --username=$app
 
@@ -139,13 +147,9 @@ ynh_add_swap --size=$swap_needed
 # SPECIFIC UPGRADE
 #=================================================
 
-config="$final_path/.config/default.yml"
-cp -f ../conf/default.yml "$config"
-ynh_replace_string --match_string="__DB_USER__" --replace_string="$app" --target_file="$config"
-ynh_replace_string --match_string="__DB_NAME__" --replace_string="$db_name" --target_file="$config"
-ynh_replace_string --match_string="__DB_PWD__" --replace_string="$db_pwd" --target_file="$config"
-ynh_replace_string --match_string="__DOMAIN__" --replace_string="$domain" --target_file="$config"
-ynh_replace_string --match_string="__PORT__" --replace_string="$port" --target_file="$config"
+ynh_add_config --template="../conf/default.yml" --destination="$final_path/.config/default.yml"
+
+ynh_store_file_checksum --file="$final_path/.config/default.yml"
 
 #=================================================
 # Updating process MISSKEY
@@ -157,11 +161,11 @@ pushd "$final_path"
 	ynh_exec_warn_less yarn run init
 popd
 
-
 #=================================================
 # SETUP SYSTEMD
 #=================================================
 ynh_script_progression --message="Upgrading systemd configuration..."
+
 # Create a dedicated systemd config
 ynh_add_systemd_config
 
@@ -169,8 +173,6 @@ ynh_add_systemd_config
 # MODIFY A CONFIG FILE
 #=================================================
 
-### Verify the checksum of a file, stored by `ynh_store_file_checksum` in the install script.
-### And create a backup of this file if the checksum is different. So the file will be backed up if the admin had modified it.
 ynh_backup_if_checksum_is_different --file="$config"
 
 ynh_replace_string --match_string="match_string" --replace_string="replace_string" --target_file="$final_path/.config/default.yml.backup"
@@ -199,7 +201,7 @@ yunohost service add $app --description="A interplanetary blogging platform" --l
 #=================================================
 ynh_script_progression --message="Starting a systemd service..."
 
-ynh_systemd_action --service_name=$app --action="start" --log_path="systemd" --line_match="All workers started"
+ynh_systemd_action --service_name=$app --action=start --log_path=systemd --line_match="All workers started"
 
 #=================================================
 # RELOAD NGINX

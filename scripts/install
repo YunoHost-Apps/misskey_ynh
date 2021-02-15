@@ -66,10 +66,11 @@ ynh_app_setting_set --app=$app --key=port --value=$port
 #=================================================
 ynh_script_progression --message="Installing dependencies..."
 
-ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
+ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 
-ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
+ynh_install_app_dependencies $pkg_dependencies
 
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - 
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
@@ -79,13 +80,9 @@ ynh_script_progression --message="Creating a POSTGRESQL database..."
 
 # Create postgresql database
 db_name=$(ynh_sanitize_dbid --db_name=$app)
-db_user=$db_name
-db_pwd=$(ynh_string_random --length=8)
 ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-ynh_app_setting_set --app=$app --key=db_pwd --value=$db_pwd
 ynh_psql_test_if_first_run
-ynh_psql_setup_db --db_user=$db_user --db_name=$db_name --db_pwd=$db_pwd
-ynh_psql_execute_as_root --sql="ALTER USER $db_user CREATEDB;"
+ynh_psql_setup_db --db_user=$db_name --db_name=$db_name
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -117,9 +114,7 @@ ynh_setup_source --dest_dir="$final_path"
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring nginx web server..."
-
-### `ynh_add_nginx_config` will use the file conf/nginx.conf
+ynh_script_progression --message="Configuring NGINX web server..."
 
 # Create a dedicated nginx config
 ynh_add_nginx_config
@@ -133,22 +128,19 @@ ynh_script_progression --message="Configuring system user..."
 ynh_system_user_create --username=$app
 
 #=================================================
-# MODIFY A CONFIG FILE
+# SETUP SYSTEMD
 #=================================================
+ynh_script_progression --message="Configuring a systemd service..."
 
-cp -f ../conf/default.yml "$final_path/.config/default.yml"
-
-ynh_replace_string --match_string="__DB_USER__" --replace_string="$app" --target_file="$final_path/.config/default.yml"
-ynh_replace_string --match_string="__DB_NAME__" --replace_string="$db_name" --target_file="$final_path/.config/default.yml"
-ynh_replace_string --match_string="__DB_PWD__" --replace_string="$db_pwd" --target_file="$final_path/.config/default.yml"
-ynh_replace_string --match_string="__DOMAIN__" --replace_string="$domain" --target_file="$final_path/.config/default.yml"
-ynh_replace_string --match_string="__PORT__" --replace_string="$port" --target_file="$final_path/.config/default.yml"
+# Create a dedicated systemd config
+ynh_add_systemd_config
 
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM
 #=================================================
 
-# Calculate and store the config file checksum into the app settings
+ynh_add_config --template="../conf/default.yml" --destination="$final_path/.config/default.yml"
+
 ynh_store_file_checksum --file="$final_path/.config/default.yml"
 
 #=================================================
@@ -173,7 +165,7 @@ chown -R $app: $final_path
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --time --weight=1
+ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
 yunohost service add $app --description="A interplanetary blogging platform" --log="/var/log/$app/$app.log"
 
@@ -183,22 +175,23 @@ yunohost service add $app --description="A interplanetary blogging platform" --l
 ynh_script_progression --message="Starting a systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action=start --log_path="systemd" --line_match="All workers started"
+ynh_systemd_action --service_name=$app --action=start --log_path=systemd --line_match="All workers started"
 
 #=================================================
 # SETUP SSOWAT
 #=================================================
-ynh_script_progression --message="Configuring SSOwat..."
+ynh_script_progression --message="Configuring permissions..." --weight=1
 
+# Make app public if necessary
 if [ $is_public -eq 1 ]
 then
-  ynh_permission_update --permission "main" --add "visitors"
+	ynh_permission_update --permission="main" --add="visitors"
 fi
 
 #=================================================
 # RELOAD NGINX
 #=================================================
-ynh_script_progression --message="Reloading nginx web server..."
+ynh_script_progression --message="Reloading NGINX web server..."
 
 ynh_systemd_action --service_name=nginx --action=reload
 
