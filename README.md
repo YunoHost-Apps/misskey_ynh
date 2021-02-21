@@ -3,7 +3,8 @@
 # Misskey for Yunohost
 
 [![Integration level](https://dash.yunohost.org/integration/misskey.svg)](https://dash.yunohost.org/appci/app/misskey) ![](https://ci-apps.yunohost.org/ci/badges/misskey.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/misskey.maintain.svg)
-[![Install misskey with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=misskey)
+
+[![Install Misskey with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=misskey)
 
 
 
@@ -17,7 +18,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 [Misskey](https://join.misskey.page/en/) is a forever evolving, sophisticated microblogging platform that support Fediverse. It provide another flavour to decentralised network. Why don't you take a short break from the hustle and bustle of the city, and dive into a new Internet?
 
-**Shipped version:** 12.47.1
+**Shipped version:** 12.69.0
 
 ## Screenshots
 

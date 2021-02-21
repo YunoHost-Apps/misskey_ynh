@@ -22,19 +22,10 @@ path_url=$(ynh_app_setting_get --app=$app --key=path)
 is_public=$(ynh_app_setting_get --app=$app --key=is_public)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+port=$(ynh_app_setting_get --app=$app --key=port)
 
 db_pwd=$(ynh_app_setting_get --app=$app --key=db_pwd)
 
-#=================================================
-# CHECK VERSION
-#=================================================
-
-### This helper will compare the version of the currently installed app and the version of the upstream package.
-### $upgrade_type can have 2 different values
-### - UPGRADE_APP if the upstream app version has changed
-### - UPGRADE_PACKAGE if only the YunoHost package has changed
-### ynh_check_app_version_changed will stop the upgrade if the app is up to date.
-### UPGRADE_APP should be used to upgrade the core app only if there's an upgrade to do.
 upgrade_type=$(ynh_check_app_version_changed)
 
 #=================================================
@@ -77,16 +68,7 @@ ynh_clean_setup () {
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
 
-#=================================================
-# CHECK THE PATH
-#=================================================
 
-# Normalize the URL path syntax
-# N.B. : this is for app installations before YunoHost 2.7
-# where this value might be something like /foo/ or foo/
-# instead of /foo ....
-# If nobody installed your app before 2.7, then you may
-# safely remove this line
 path_url=$(ynh_normalize_url_path --path_url=$path_url)
 
 #=================================================
@@ -108,6 +90,10 @@ then
 
 	# Download, check integrity, uncompress and patch the source from app.src
 	#ynh_setup_source --dest_dir="$final_path"
+	pushd "$final_path"
+		git checkout master
+		git pull
+	popd
 fi
 
 #=================================================
@@ -116,7 +102,7 @@ fi
 ynh_script_progression --message="Upgrading nginx web server configuration..."
 
 # Create a dedicated nginx config
-ynh_add_nginx_config
+ynh_add_nginx_config 'port'
 
 #=================================================
 # UPGRADE DEPENDENCIES
@@ -168,8 +154,9 @@ ynh_replace_string --match_string="__PORT__" --replace_string="$port" --target_f
 # Updating process MISSKEY
 #=================================================
 pushd "$final_path"
-	 yarn add ts-node webpack
-	 NODE_ENV=production yarn build
+	 yarn install
+	 ynh_node_load_PATH=production yarn build
+	 yarn migrate
 popd
 
 
@@ -184,11 +171,10 @@ ynh_add_systemd_config
 # MODIFY A CONFIG FILE
 #=================================================
 
-### Verify the checksum of a file, stored by `ynh_store_file_checksum` in the install script.
-### And create a backup of this file if the checksum is different. So the file will be backed up if the admin had modified it.
+
 ynh_backup_if_checksum_is_different --file="$config"
 
-ynh_replace_string --match_string="match_string" --replace_string="replace_string" --target_file="$final_path/.config/default.yml.backup"
+# ynh_replace_string --match_string="match_string" --replace_string="replace_string" --target_file="$final_path/.config/default.yml.backup"
 
 # Recalculate and store the checksum of the file for the next upgrade.
 ynh_store_file_checksum --file="$config"
@@ -206,6 +192,8 @@ chown -R $app: $final_path
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..."
+
+ynh_add_systemd_config --service="$app" --template="systemd.service" --others_var="ynh_node_load_PATH ynh_npm"
 
 yunohost service add $app --description "$app service" ---log_type "systemd"
 
