@@ -9,7 +9,7 @@
   "url": "https://join.misskey.page/en/",
   "license": "AGPL-3.0",
   "maintainer": {
-    "name": "Anmol"
+    "name": "Anmol Sharma"
   },
   "requirements": {
     "yunohost": ">= 4.0"
