@@ -1,12 +1,10 @@
 # See here for more information
 # https://github.com/YunoHost/package_check#syntax-check_process-file
 
-# Move this file from check_process.default to check_process when you have filled it.
-
 ;; Test complet
 	; Manifest
-		domain="domain.tld"	(DOMAIN)
-		is_public=1	(PUBLIC|public=1|private=0)
+		domain="domain.tld"
+		is_public=1
 	; Checks
 		pkg_linter=1
 		setup_sub_dir=0
@@ -15,10 +13,9 @@
 		setup_private=0
 		setup_public=1
 		upgrade=0
-		upgrade=0	from_commit=CommitHash
+		#upgrade=0	from_commit=CommitHash
 		backup_restore=0
 		multi_instance=1
-		port_already_use=0
 		change_url=1
 ;;; Options
 Email=anmol@datamol.org

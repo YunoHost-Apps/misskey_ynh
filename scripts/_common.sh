@@ -23,8 +23,6 @@ NODEJS_VERSION="12"
 # FUTURE OFFICIAL HELPERS
 #=================================================
 
-#!/bin/bash
-
 # Add swap
 #
 # usage: ynh_add_swap --size=SWAP in Mb
