@@ -84,6 +84,14 @@ ynh_psql_test_if_first_run
 ynh_psql_setup_db --db_user=$db_name --db_name=$db_name
 
 #=================================================
+# CREATE DEDICATED USER
+#=================================================
+ynh_script_progression --message="Configuring system user..." --weight=2
+
+# Create a system user
+ynh_system_user_create --username=$app
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression --message="Setting up source files..."
@@ -113,23 +121,15 @@ ynh_setup_source --dest_dir="$final_path"
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring NGINX web server..."
+ynh_script_progression --message="Configuring NGINX web server..." --weight=3
 
 # Create a dedicated nginx config
 ynh_add_nginx_config
 
 #=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Configuring system user..."
-
-# Create a system user
-ynh_system_user_create --username=$app
-
-#=================================================
 # SETUP SYSTEMD
 #=================================================
-ynh_script_progression --message="Configuring a systemd service..."
+ynh_script_progression --message="Configuring a systemd service..." --weight=1
 
 # Create a dedicated systemd config
 ynh_add_systemd_config
@@ -143,6 +143,7 @@ ynh_add_config --template="../conf/default.yml" --destination="$final_path/.conf
 #=================================================
 # INSTALLING MISKKEY
 #=================================================
+ynh_script_progression --message="Installing Misskey..." --weight=15
 
 pushd "$final_path"
 	ynh_exec_warn_less yarn add ts-node webpack
