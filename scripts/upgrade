@@ -120,26 +120,24 @@ ynh_system_user_create --username=$app
 #=================================================
 # ADD SWAP IF NEEDED
 #=================================================
-ynh_script_progression --message="Adding swap if needed..."
+# ynh_script_progression --message="Adding swap if needed..."
 
-total_memory=$(ynh_get_ram --total)
-swap_needed=0
+# total_memory=$(ynh_get_ram --total)
+# swap_needed=0
 
-if [ $total_memory -lt $MEMORY_NEEDED ]; then
-	# Need a minimum of 8Go of memory
-	swap_needed=$(($MEMORY_NEEDED - $total_memory))
-fi
+# if [ $total_memory -lt $MEMORY_NEEDED ]; then
+# 	# Need a minimum of 8Go of memory
+# 	swap_needed=$(($MEMORY_NEEDED - $total_memory))
+# fi
 
-ynh_script_progression --message="Adding $swap_needed Mo to swap..."
-ynh_add_swap --size=$swap_needed
+# ynh_script_progression --message="Adding $swap_needed Mo to swap..."
+# ynh_add_swap --size=$swap_needed
 
 #=================================================
 # SPECIFIC UPGRADE
 #=================================================
 
 ynh_add_config --template="../conf/default.yml" --destination="$final_path/.config/default.yml"
-
-ynh_store_file_checksum --file="$final_path/.config/default.yml"
 
 #=================================================
 # Updating process MISSKEY
@@ -158,17 +156,6 @@ ynh_script_progression --message="Upgrading systemd configuration..."
 
 # Create a dedicated systemd config
 ynh_add_systemd_config
-
-#=================================================
-# MODIFY A CONFIG FILE
-#=================================================
-
-ynh_backup_if_checksum_is_different --file="$config"
-
-ynh_replace_string --match_string="match_string" --replace_string="replace_string" --target_file="$final_path/.config/default.yml.backup"
-
-# Recalculate and store the checksum of the file for the next upgrade.
-ynh_store_file_checksum --file="$config"
 
 #=================================================
 # GENERIC FINALIZATION

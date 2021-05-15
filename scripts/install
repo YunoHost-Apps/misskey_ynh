@@ -140,8 +140,6 @@ ynh_add_systemd_config
 
 ynh_add_config --template="../conf/default.yml" --destination="$final_path/.config/default.yml"
 
-ynh_store_file_checksum --file="$final_path/.config/default.yml"
-
 #=================================================
 # INSTALLING MISKKEY
 #=================================================
