@@ -50,7 +50,7 @@ test ! -d $final_path \
 # RESTORE THE NGINX CONFIGURATION
 #=================================================
 
-ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf" --weight=1
+ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
 
 #=================================================
 # RESTORE THE APP MAIN DIR
