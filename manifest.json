@@ -11,8 +11,6 @@
   "upstream": {
         "license": "AGPL-3.0",
         "website": "https://join.misskey.page",
-        "demo": "https://demo.example.com",
-        "admindoc": "https://yunohost.org/packaging_apps",
         "userdoc": "https://yunohost.org/apps",
         "code": "https://github.com/syuilo/misskey"
   },
@@ -23,7 +21,7 @@
   "requirements": {
     "yunohost": ">= 4.2.4"
   },
-  "multi_instance": true,
+  "multi_instance": false,
   "services": ["nginx"],
   "arguments": {
     "install": [
