@@ -18,8 +18,8 @@
 		multi_instance=1
 		change_url=0
 ;;; Options
-Email=anmol@datamol.org
-Notification=all
+Email=
+Notification=
 ;;; Upgrade options
 	; commit=CommitHash
 		name=Name and date of the commit.

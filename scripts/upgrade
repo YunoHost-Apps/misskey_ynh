@@ -93,7 +93,7 @@ fi
 ynh_script_progression --message="Upgrading nginx web server configuration..."
 
 # Create a dedicated nginx config
-ynh_add_nginx_config
+ynh_add_nginx_config 'port'
 
 #=================================================
 # UPGRADE DEPENDENCIES

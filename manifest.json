@@ -8,9 +8,9 @@
   },
   "version": "12.69.0~ynh1",
   "url": "https://join.misskey.page/en/",
-  "license": "AGPL-3.0-or-later",
+  "license": "AGPL-3.0",
   "maintainer": {
-    "name": "Anmol"
+    "name": "Anmol Sharma"
   },
   "requirements": {
     "yunohost": ">= 4.2.4"
