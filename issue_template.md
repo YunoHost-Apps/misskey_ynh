@@ -31,7 +31,7 @@ about: When creating a bug report, please use the following template to provide 
 
 - *If you performed a command from the CLI, the command itself is enough. For example:*
     ```sh
-    sudo yunohost app install REPLACEBYYOURAPP
+    sudo yunohost app install misskey
     ```
 - *If you used the webadmin, please perform the equivalent command from the CLI first.*
 - *If the error occurs in your browser, explain what you did:*

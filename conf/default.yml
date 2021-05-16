@@ -62,7 +62,7 @@ db:
   db: __DB_NAME__
 
   # Auth
-  user: __DB_USER__
+  user: __DB_NAME__
   pass: __DB_PWD__
 
   # Whether disable Caching queries
@@ -139,7 +139,7 @@ id: "aid"
 #  port: 514
 
 # Proxy for HTTP/HTTPS
-#proxy: http://127.0.0.1:3128
+proxy: http://127.0.0.1:__PORT__
 
 #proxyBypassHosts: [
 #  'example.com',

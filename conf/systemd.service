@@ -1,15 +1,15 @@
 [Unit]
 Description=__APP__ daemon running
+
 [Service]
 Type=simple
 User=__APP__
-ExecStart=__YNH_NPM__ start
+Group=__APP__
 WorkingDirectory=__FINALPATH__
-Environment="__YNH_NODE_LOAD_PATH__=production"
+Environment=__YNH_NODE_LOAD_PATH__
+Environment="NODE_ENV=production"
+ExecStart=__YNH_NPM__ start
 TimeoutSec=60
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=__APP__
 Restart=always
 
 [Install]
