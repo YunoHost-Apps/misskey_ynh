@@ -18,6 +18,12 @@ Platforme de Microblogging
 
 
 
+## Captures d'écran
+
+
+   ![](./doc/screenshots/screenshot.jpg)
+
+
 
 
 

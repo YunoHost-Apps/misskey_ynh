@@ -26,6 +26,12 @@ Microblogging platform
 
 
 
+## Screenshots
+
+
+   ![](./doc/screenshots/screenshot.jpg)
+
+
 
 
 
