@@ -12,7 +12,7 @@
         "license": "AGPL-3.0",
         "website": "https://join.misskey.page",
         "userdoc": "https://yunohost.org/apps",
-        "code": "https://github.com/syuilo/misskey"
+        "code": "https://github.com/misskey-dev/misskey"
   },
   "license": "AGPL-3.0",
   "maintainer": {
