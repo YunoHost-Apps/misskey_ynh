@@ -40,7 +40,7 @@ Microblogging platform
 * Official app website: https://join.misskey.page
 * Official user documentation: https://yunohost.org/apps
 
-* Upstream app code repository:  https://github.com/syuilo/misskey
+* Upstream app code repository:  https://github.com/misskey-dev/misskey
 * YunoHost documentation for this app: https://yunohost.org/app_misskey
 * Report a bug: https://github.com/YunoHost-Apps/misskey_ynh/issues
 
