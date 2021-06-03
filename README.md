@@ -21,7 +21,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 Microblogging platform
 
-**Shipped version:** 12.81.0~ynh1
+**Shipped version:** 12.82.0~ynh1
 
 
 
@@ -40,7 +40,7 @@ Microblogging platform
 * Official app website: https://join.misskey.page
 * Official user documentation: https://yunohost.org/apps
 
-* Upstream app code repository:  https://github.com/syuilo/misskey
+* Upstream app code repository:  https://github.com/misskey-dev/misskey
 * YunoHost documentation for this app: https://yunohost.org/app_misskey
 * Report a bug: https://github.com/YunoHost-Apps/misskey_ynh/issues
 
