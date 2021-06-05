@@ -13,15 +13,42 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 Platforme de Microblogging
 
-**Version incluse :** 12.81.0~ynh1
+**Version incluse :** 12.82.0~ynh1
 
 
+
+## Captures d'écran
+
+![](./doc/screenshots/screenshot.jpg)
+
+## Avertissements / informations importantes
+
+### Points importants à lire avant l'installation
+
+- *Misskey* nécessite un domaine racine dédié, par ex. `misskey.domain.tld`
+- *Misskey* peut prendre un certain temps à installer (plus de 30 minutes). Alors prenez un peu de temps et prenez un café.
+- Si l'installation à partir de la ligne de commande, l'utilisation de l'écran est réenregistrée pour éviter la déconnexion. Voir ci-dessous.
+- Après l'installation, la première page peut prendre du temps à charger et peut afficher une erreur de délai d'attente. Donnez-lui le temps de se préparer pour vous. Actualiser la page après 2-3 minutes.
+- Le premier compte créé sera un utilisateur administrateur et disposera de tous les droits d'administrateur.
+
+Utiliser *screen* en cas de déconnexion
+
+``` 
+sudo apt-get install screen
+screen
+sudo yunohost app install https://github.com/YunoHost-Apps/misskey_ynh.git
+```
+Récupérer après déconnexion :
+```
+screen -d
+screen -r
+```
 
 ## Documentations et ressources
 
 * Site officiel de l'app : https://join.misskey.page
 * Documentation officielle utilisateur : https://yunohost.org/apps
-* Dépôt de code officiel de l'app : https://github.com/syuilo/misskey
+* Dépôt de code officiel de l'app : https://github.com/misskey-dev/misskey
 * Documentation YunoHost pour cette app : https://yunohost.org/app_misskey
 * Signaler un bug : https://github.com/YunoHost-Apps/misskey_ynh/issues
 
