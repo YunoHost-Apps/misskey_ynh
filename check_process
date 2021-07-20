@@ -10,8 +10,8 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
-		# 12.83.0~ynh1
-		#upgrade=1	from_commit=c8517f3f2ac290a25eff6e4c20e829830cb0658f
+		#12.83.0~ynh1
+		upgrade=1	from_commit=c8517f3f2ac290a25eff6e4c20e829830cb0658f
 		backup_restore=1
 		multi_instance=1
 		change_url=0
