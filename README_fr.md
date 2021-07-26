@@ -13,7 +13,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 Platforme de Microblogging
 
-**Version incluse :** 12.84.0~ynh1
+**Version incluse :** 12.84.2~ynh2
 
 
 
