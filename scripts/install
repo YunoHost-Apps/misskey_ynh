@@ -69,7 +69,6 @@ ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 
 ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
 
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - 
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
@@ -89,7 +88,7 @@ ynh_psql_setup_db --db_user=$db_name --db_name=$db_name
 ynh_script_progression --message="Configuring system user..." --weight=2
 
 # Create a system user
-ynh_system_user_create --username=$app
+ynh_system_user_create --username=$app --home_dir="$final_path"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -99,6 +98,10 @@ ynh_script_progression --message="Setting up source files..." --weight=3
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path"
+
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -119,8 +122,16 @@ ynh_add_systemd_config
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM
 #=================================================
+ynh_script_progression --message="Adding a configuration file..." --weight=1
+
+# Configure redis
+redis_db=$(ynh_redis_get_free_db)
+ynh_app_setting_set --app="$app" --key=redis_db --value="$redis_db"
 
 ynh_add_config --template="../conf/default.yml" --destination="$final_path/.config/default.yml"
+
+chmod 400 "$final_path/.config/default.yml"
+chown $app:$app "$final_path/.config/default.yml"
 
 #=================================================
 # INSTALLING MISKKEY
@@ -132,15 +143,6 @@ pushd "$final_path"
 	ynh_exec_warn_less NODE_ENV=production yarn build
 	ynh_exec_warn_less yarn run init
 popd
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# SECURE FILES AND DIRECTORIES
-#=================================================
-
-# Set permissions to app files
-chown -R $app: $final_path
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
