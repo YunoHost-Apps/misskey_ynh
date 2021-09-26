@@ -27,8 +27,7 @@
     "install": [
       {
         "name": "domain",
-        "type": "domain",
-        "example": "example.com"
+        "type": "domain"
       },
       {
         "name": "is_public",
