@@ -9,7 +9,7 @@ MEMORY_NEEDED="2560"
 # dependencies used by the app
 pkg_dependencies="build-essential ffmpeg postgresql postgresql-contrib"
 
-NODEJS_VERSION="12"
+NODEJS_VERSION="14"
 
 #=================================================
 # PERSONAL HELPERS
