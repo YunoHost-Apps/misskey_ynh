@@ -7,7 +7,7 @@
 MEMORY_NEEDED="2560"
 
 # dependencies used by the app
-pkg_dependencies="build-essential ffmpeg redis-server redis-tools postgresql postgresql-contrib"
+pkg_dependencies="build-essential ffmpeg postgresql postgresql-contrib"
 
 NODEJS_VERSION="12"
 
