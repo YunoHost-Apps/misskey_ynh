@@ -17,7 +17,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 Microblogging platform
 
-**Shipped version:** 12.84.2~ynh2
+**Shipped version:** 12.96.1~ynh1
 
 
 
