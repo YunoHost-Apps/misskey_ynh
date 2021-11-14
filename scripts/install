@@ -129,7 +129,8 @@ ynh_script_progression --message="Installing Misskey..." --weight=15
 
 pushd "$final_path"
 	ynh_exec_warn_less yarn add ts-node webpack
-	ynh_exec_warn_less NODE_ENV=production yarn build
+	ynh_exec_warn_less yarn build
+	#ynh_exec_warn_less NODE_ENV=production yarn build
 	ynh_exec_warn_less yarn run init
 popd
 
