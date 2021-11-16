@@ -126,6 +126,10 @@ ynh_add_systemd_config
 #=================================================
 ynh_script_progression --message="Adding a configuration file..." --weight=1
 
+# Configure redis
+redis_db=$(ynh_redis_get_free_db)
+ynh_app_setting_set --app="$app" --key=redis_db --value="$redis_db"
+
 ynh_add_config --template="../conf/default.yml" --destination="$final_path/.config/default.yml"
 
 #=================================================

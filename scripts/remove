@@ -52,6 +52,13 @@ ynh_script_progression --message="Removing the PostgreSQL database..." --weight=
 ynh_psql_remove_db --db_user="$db_user" --db_name="$db_name"
 
 #=================================================
+# REMOVE THE REDIS DATABASE
+#=================================================
+ynh_script_progression --message="Removing the redis database..." --weight=1
+
+ynh_redis_remove_db "$redis_db"
+
+#=================================================
 # REMOVE DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Removing dependencies..." --weight=1
