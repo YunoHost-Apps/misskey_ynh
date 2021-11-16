@@ -19,7 +19,7 @@
     "name": "Anmol Sharma"
   },
   "requirements": {
-    "yunohost": ">= 4.2.4"
+    "yunohost": ">= 4.3.0"
   },
   "multi_instance": true,
   "services": ["nginx"],

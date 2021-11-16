@@ -82,7 +82,7 @@ ynh_systemd_action --service_name=$app --action=stop --log_path=systemd --line_m
 ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
 
 # Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app
+ynh_system_user_create --username=$app --home_dir="$final_path"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -95,6 +95,10 @@ then
 	# Download, check integrity, uncompress and patch the source from app.src
 	ynh_setup_source --dest_dir="$final_path" --keep="$final_path/.config/default.yml"
 fi
+
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -122,7 +126,7 @@ ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ st
 
 pushd "$final_path"
 	ynh_exec_warn_less yarn install
-	ynh_exec_warn_less NODE_ENV=production yarn build
+	ynh_exec_warn_less yarn build
 	ynh_exec_warn_less yarn migrate
 popd
 
@@ -135,13 +139,12 @@ ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
 ynh_add_systemd_config
 
 #=================================================
-# GENERIC FINALIZATION
+# SETUP LOGROTATE
 #=================================================
-# SECURE FILES AND DIRECTORIES
-#=================================================
+ynh_script_progression --message="Upgrading logrotate configuration..." --time --weight=1
 
-# Set permissions on app files
-chown -R $app: $final_path
+# Use logrotate to manage app-specific logfile(s)
+ynh_use_logrotate --non-append
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
