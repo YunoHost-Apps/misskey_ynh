@@ -6,12 +6,11 @@
     "en": "Microblogging platform",
     "fr": "Platforme de Microblogging"
   },
-  "version": "12.84.2~ynh2",
+  "version": "12.96.1~ynh1",
   "url": "https://join.misskey.page/en/",
   "upstream": {
         "license": "AGPL-3.0",
         "website": "https://join.misskey.page",
-        "userdoc": "https://yunohost.org/apps",
         "code": "https://github.com/misskey-dev/misskey"
   },
   "license": "AGPL-3.0",
@@ -19,7 +18,7 @@
     "name": "Anmol Sharma"
   },
   "requirements": {
-    "yunohost": ">= 4.2.4"
+    "yunohost": ">= 4.3.0"
   },
   "multi_instance": true,
   "services": ["nginx"],

@@ -79,6 +79,7 @@ ynh_script_progression --message="Creating a PostgreSQL database..." --weight=2
 
 # Create postgresql database
 db_name=$(ynh_sanitize_dbid --db_name=$app)
+db_user=$db_name
 ynh_app_setting_set --app=$app --key=db_name --value=$db_name
 ynh_psql_test_if_first_run
 ynh_psql_setup_db --db_user=$db_name --db_name=$db_name
@@ -89,7 +90,7 @@ ynh_psql_setup_db --db_user=$db_name --db_name=$db_name
 ynh_script_progression --message="Configuring system user..." --weight=2
 
 # Create a system user
-ynh_system_user_create --username=$app
+ynh_system_user_create --username=$app --home_dir="$final_path"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -99,6 +100,10 @@ ynh_script_progression --message="Setting up source files..." --weight=3
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path"
+
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -113,12 +118,19 @@ ynh_add_nginx_config
 #=================================================
 ynh_script_progression --message="Configuring a systemd service..." --weight=1
 
+ynh_replace_string --match_string="__ENV_PATH__" --replace_string="$PATH" --target_file="../conf/systemd.service"
+
 # Create a dedicated systemd config
 ynh_add_systemd_config
 
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM
 #=================================================
+ynh_script_progression --message="Adding a configuration file..." --weight=1
+
+# Configure redis
+redis_db=$(ynh_redis_get_free_db)
+ynh_app_setting_set --app="$app" --key=redis_db --value="$redis_db"
 
 ynh_add_config --template="../conf/default.yml" --destination="$final_path/.config/default.yml"
 
@@ -128,19 +140,19 @@ ynh_add_config --template="../conf/default.yml" --destination="$final_path/.conf
 ynh_script_progression --message="Installing Misskey..." --weight=15
 
 pushd "$final_path"
+	ynh_use_nodejs
 	ynh_exec_warn_less yarn add ts-node webpack
-	ynh_exec_warn_less NODE_ENV=production yarn build
+	ynh_exec_warn_less yarn build
 	ynh_exec_warn_less yarn run init
 popd
 
 #=================================================
-# GENERIC FINALIZATION
+# SETUP LOGROTATE
 #=================================================
-# SECURE FILES AND DIRECTORIES
-#=================================================
+ynh_script_progression --message="Configuring log rotation..." --weight=1
 
-# Set permissions to app files
-chown -R $app: $final_path
+# Use logrotate to manage application logfile(s)
+ynh_use_logrotate
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
