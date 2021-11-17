@@ -4,7 +4,7 @@
 # COMMON VARIABLES
 #=================================================
 
-NODEJS_VERSION="12"
+NODEJS_VERSION="16"
 
 # dependencies used by the app
 pkg_dependencies="ffmpeg postgresql"
