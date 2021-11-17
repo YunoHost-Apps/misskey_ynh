@@ -6,7 +6,7 @@ Type=simple
 User=__APP__
 Group=__APP__
 WorkingDirectory=__FINALPATH__
-Environment=__YNH_NODE_LOAD_PATH__
+Environment="PATH=__ENV_PATH__"
 Environment="NODE_ENV=production"
 ExecStart=__YNH_NPM__ start
 TimeoutSec=60

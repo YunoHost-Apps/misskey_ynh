@@ -52,6 +52,13 @@ ynh_script_progression --message="Removing the PostgreSQL database..." --weight=
 ynh_psql_remove_db --db_user="$db_user" --db_name="$db_name"
 
 #=================================================
+# REMOVE THE REDIS DATABASE
+#=================================================
+ynh_script_progression --message="Removing the redis database..." --weight=1
+
+ynh_redis_remove_db "$redis_db"
+
+#=================================================
 # REMOVE DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Removing dependencies..." --weight=1
@@ -76,6 +83,14 @@ ynh_script_progression --message="Removing NGINX web server configuration..." --
 
 # Remove the dedicated nginx config
 ynh_remove_nginx_config
+
+#=================================================
+# REMOVE LOGROTATE CONFIGURATION
+#=================================================
+ynh_script_progression --message="Removing logrotate configuration..." --weight=1
+
+# Remove the app-specific logrotate config
+ynh_remove_logrotate
 
 #=================================================
 # SPECIFIC REMOVE

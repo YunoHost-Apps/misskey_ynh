@@ -11,9 +11,9 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 ## Vue d'ensemble
 
-Platforme de Microblogging
+Misskey est une plateforme de microblogging décentralisée. Puisqu'il existe au sein du Fediverse (un univers où diverses plateformes de médias sociaux sont organisées), il est mutuellement lié à d'autres plateformes de médias sociaux.
 
-**Version incluse :** 12.84.2~ynh2
+**Version incluse :** 12.96.1~ynh1
 
 
 
@@ -47,7 +47,6 @@ screen -r
 ## Documentations et ressources
 
 * Site officiel de l'app : https://join.misskey.page
-* Documentation officielle utilisateur : https://yunohost.org/apps
 * Dépôt de code officiel de l'app : https://github.com/misskey-dev/misskey
 * Documentation YunoHost pour cette app : https://yunohost.org/app_misskey
 * Signaler un bug : https://github.com/YunoHost-Apps/misskey_ynh/issues

@@ -11,7 +11,7 @@
 		setup_public=1
 		upgrade=1
 		# 12.84.0~ynh1
-		upgrade=1	from_commit=32c061ef1a6cedb00300ffd38184cd7d5fff4c95
+		#upgrade=1	from_commit=32c061ef1a6cedb00300ffd38184cd7d5fff4c95
 		backup_restore=1
 		multi_instance=1
 		change_url=0
