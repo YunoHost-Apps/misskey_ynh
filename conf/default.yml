@@ -139,7 +139,7 @@ id: "aid"
 #  port: 514
 
 # Proxy for HTTP/HTTPS
-proxy: http://127.0.0.1:__PORT__
+#proxy: http://127.0.0.1:3128
 
 #proxyBypassHosts: [
 #  'example.com',
