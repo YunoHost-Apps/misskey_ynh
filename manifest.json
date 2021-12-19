@@ -1,42 +1,44 @@
 {
-  "name": "Misskey",
-  "id": "misskey",
-  "packaging_format": 1,
-  "description": {
-    "en": "Microblogging platform",
-    "fr": "Platforme de Microblogging"
-  },
-  "version": "12.96.1~ynh3",
-  "url": "https://join.misskey.page/en/",
-  "upstream": {
+    "name": "Misskey",
+    "id": "misskey",
+    "packaging_format": 1,
+    "description": {
+        "en": "Microblogging platform",
+        "fr": "Platforme de Microblogging"
+    },
+    "version": "12.100.2~ynh1",
+    "url": "https://join.misskey.page/en/",
+    "upstream": {
         "license": "AGPL-3.0",
         "website": "https://join.misskey.page",
         "code": "https://github.com/misskey-dev/misskey"
-  },
-  "license": "AGPL-3.0",
-  "maintainer": {
-    "name": "Anmol Sharma"
-  },
-  "requirements": {
-    "yunohost": ">= 4.3.0"
-  },
-  "multi_instance": true,
-  "services": ["nginx"],
-  "arguments": {
-    "install": [
-      {
-        "name": "domain",
-        "type": "domain"
-      },
-      {
-        "name": "is_public",
-        "type": "boolean",
-        "help": {
-            "en": "If enabled, Misskey will be accessible by people who do not have an account. This can be changed later via the webadmin.",
-            "fr": "Si cette case est cochée, Misskey sera accessible aux personnes n’ayant pas de compte. Vous pourrez changer ceci plus tard via la webadmin."
+    },
+    "license": "AGPL-3.0",
+    "maintainer": {
+        "name": "Anmol Sharma"
+    },
+    "requirements": {
+        "yunohost": ">= 4.3.0"
+    },
+    "multi_instance": true,
+    "services": [
+        "nginx"
+    ],
+    "arguments": {
+        "install": [
+            {
+                "name": "domain",
+                "type": "domain"
+            },
+            {
+                "name": "is_public",
+                "type": "boolean",
+                "help": {
+                    "en": "If enabled, Misskey will be accessible by people who do not have an account. This can be changed later via the webadmin.",
+                    "fr": "Si cette case est cochée, Misskey sera accessible aux personnes n’ayant pas de compte. Vous pourrez changer ceci plus tard via la webadmin."
                 },
-        "default": true
-      }
-    ]
-  }
+                "default": true
+            }
+        ]
+    }
 }
