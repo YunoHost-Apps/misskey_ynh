@@ -1,5 +1,5 @@
-SOURCE_URL=https://github.com/misskey-dev/misskey/archive/refs/tags/12.106.2.tar.gz
-SOURCE_SUM=a9b6a5efa6e125a32bcd20845f39c2aa21f29324838e5462350ea995af829e1a
+SOURCE_URL=https://github.com/misskey-dev/misskey/archive/refs/tags/12.106.3.tar.gz
+SOURCE_SUM=2780c6c22d288c8127921a26554a59a1890f17d44643856860fb288660b5b4a2
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
