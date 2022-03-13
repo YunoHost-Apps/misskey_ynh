@@ -6,7 +6,7 @@
         "en": "Microblogging platform",
         "fr": "Platforme de Microblogging"
     },
-    "version": "12.107.0~ynh1",
+    "version": "12.108.1~ynh1",
     "url": "https://join.misskey.page/en/",
     "upstream": {
         "license": "AGPL-3.0",
