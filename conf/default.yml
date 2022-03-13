@@ -62,7 +62,7 @@ db:
   db: __DB_NAME__
 
   # Auth
-  user: __DB_NAME__
+  user: __DB_USER__
   pass: __DB_PWD__
 
   # Whether disable Caching queries
