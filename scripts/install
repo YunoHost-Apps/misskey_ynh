@@ -69,7 +69,6 @@ ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 
 ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
 
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - 
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
