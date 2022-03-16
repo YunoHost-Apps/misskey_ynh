@@ -117,7 +117,6 @@ ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 
 ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
 
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - 
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
@@ -125,9 +124,10 @@ ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ st
 #=================================================
 
 pushd "$final_path"
-	ynh_exec_warn_less yarn install
-	ynh_exec_warn_less yarn build
-	ynh_exec_warn_less yarn migrate
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn run clean
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production yarn build
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn migrate
 popd
 
 #=================================================
