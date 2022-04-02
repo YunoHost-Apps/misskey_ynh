@@ -69,6 +69,9 @@ case $asset_url in
   *".tar.gz")
     src="app"
     ;;
+  *)
+    src=""
+    ;;
 esac
 
 # If $src is not empty, let's process the asset
