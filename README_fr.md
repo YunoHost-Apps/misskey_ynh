@@ -46,7 +46,7 @@ screen -r
 
 ## Documentations et ressources
 
-* Site officiel de l'app : https://join.misskey.page
+* Site officiel de l'app : https://misskey-hub.net/
 * Dépôt de code officiel de l'app : https://github.com/misskey-dev/misskey
 * Documentation YunoHost pour cette app : https://yunohost.org/app_misskey
 * Signaler un bug : https://github.com/YunoHost-Apps/misskey_ynh/issues
