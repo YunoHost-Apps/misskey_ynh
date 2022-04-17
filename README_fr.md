@@ -19,7 +19,7 @@ Misskey est une plateforme de microblogging décentralisée. Puisqu'il existe au
 
 ## Captures d'écran
 
-![](./doc/screenshots/screenshot-desktop.png)
+![](./doc/screenshots/screenshot-desktop.jpg)
 
 ## Avertissements / informations importantes
 
