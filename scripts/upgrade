@@ -68,14 +68,7 @@ if ynh_legacy_permissions_exists; then
 fi
 
 
-# Upgrade from <= 12.110.1~ynh1:
-if ynh_compare_current_package_version --comparison le --version 12.110.1~ynh1
-then
-	# declaration of new parameters
-	client_max_body_size="80M"
-	# registration of new parameters
-	ynh_app_setting_set --app="$app" --key=client_max_body_size --value="$client_max_body_size"
-fi	
+client_max_body_size="80M"
 
 #=================================================
 # STANDARD UPGRADE STEPS
