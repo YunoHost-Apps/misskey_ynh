@@ -67,6 +67,14 @@ if ynh_legacy_permissions_exists; then
 	ynh_app_setting_delete --app=$app --key=is_public
 fi
 
+
+# Upgrade from <12.110.1~ynh1:
+if ynh_compare_current_package_version --comparison lt --version 12.110.1~ynh1
+then
+	# declaration of new parameters
+	client_max_body_size="80M"
+fi	
+
 #=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
