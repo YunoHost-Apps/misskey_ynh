@@ -68,8 +68,6 @@ if ynh_legacy_permissions_exists; then
 fi
 
 
-client_max_body_size="80M"
-
 #=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
