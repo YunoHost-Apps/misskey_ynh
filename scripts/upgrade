@@ -73,6 +73,8 @@ if ynh_compare_current_package_version --comparison lt --version 12.110.1~ynh1
 then
 	# declaration of new parameters
 	client_max_body_size="80M"
+	# registration of new parameters
+	ynh_app_setting_set --app="$app" --key=client_max_body_size --value="$client_max_body_size"
 fi	
 
 #=================================================
