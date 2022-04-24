@@ -138,7 +138,7 @@ id: 'aid'
 #proxyRemoteFiles: true
 
 # Sign to ActivityPub GET request (default: false)
-#signToActivityPubGet: true
+signToActivityPubGet: true
 
 #allowedPrivateNetworks: [
 #  '127.0.0.1/32'
