@@ -68,8 +68,8 @@ if ynh_legacy_permissions_exists; then
 fi
 
 
-# Upgrade from <12.110.1~ynh1:
-if ynh_compare_current_package_version --comparison lt --version 12.110.1~ynh1
+# Upgrade from <= 12.110.0~ynh3:
+if ynh_compare_current_package_version --comparison le --version 12.110.~ynh3
 then
 	# declaration of new parameters
 	client_max_body_size="80M"
