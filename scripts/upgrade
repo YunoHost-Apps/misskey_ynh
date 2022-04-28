@@ -30,6 +30,15 @@ port=$(ynh_app_setting_get --app=$app --key=port)
 upgrade_type=$(ynh_check_app_version_changed)
 
 #=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+
+if ynh_compare_current_package_version --comparison lt --version 12.105.0~ynh1
+then
+	ynh_die --message="Sorry, this version is not upgradable to the latest version :("
+fi
+
+#=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
 #=================================================
 ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=1
