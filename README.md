@@ -28,6 +28,7 @@ Misskey is a decentralized microblogging platform. Since it exists within the Fe
 
 ### Important points to read before installing
 
+- Beginning with version 12.111.1~ynh1 (*Misskey* 12.111.1) YunoHost >= 11.0.7 is required, as PostgreSQL >= 12.x is mandatory.
 - *Misskey* requires a dedicated root domain, e.g. `misskey.domain.tld`
 - Due to Cypress dependency, *Misskey* only works on 64-bit CPU machines.
 - *Misskey* can take quite some time to install (more then 30 minutes). So take out some time and grab yourself a coffee.
