@@ -40,6 +40,14 @@ then
 fi
 
 #=================================================
+# STOP SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Stopping a systemd service..." --weight=1
+
+# Stop bservice before backup, to not loose message in case of failed upgrade and restore
+ynh_systemd_action --service_name=$app --action="stop" --log_path=systemd --line_match="Stopped"
+
+#=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
 #=================================================
 ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=1
@@ -56,13 +64,6 @@ ynh_abort_if_errors
 
 #=================================================
 # STANDARD UPGRADE STEPS
-#=================================================
-# STOP SYSTEMD SERVICE
-#=================================================
-ynh_script_progression --message="Stopping a systemd service..." --weight=1
-
-ynh_systemd_action --service_name=$app --action="stop" --log_path=systemd --line_match="Stopped"
-
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
