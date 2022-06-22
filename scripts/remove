@@ -29,8 +29,8 @@ redis_db=$(ynh_app_setting_get --app=$app --key=redis_db)
 # REMOVE SERVICE INTEGRATION IN YUNOHOST
 #=================================================
 
-# Remove the service from the list of services known by Yunohost (added from `yunohost service add`)
-if ynh_exec_warn_less yunohost service status "$app" >/dev/null
+# Remove the service from the list of services known by YunoHost (added from `yunohost service add`)
+if ynh_exec_warn_less yunohost service status $app >/dev/null
 then
 	ynh_script_progression --message="Removing $app service integration..." --weight=1
 	yunohost service remove $app
@@ -42,7 +42,15 @@ fi
 ynh_script_progression --message="Stopping and removing the systemd service..." --weight=1
 
 # Remove the dedicated systemd config
-ynh_remove_systemd_config  --service="$app"
+ynh_remove_systemd_config
+
+#=================================================
+# REMOVE LOGROTATE CONFIGURATION
+#=================================================
+ynh_script_progression --message="Removing logrotate configuration..." --weight=1
+
+# Remove the app-specific logrotate config
+ynh_remove_logrotate
 
 #=================================================
 # REMOVE THE POSTGRESQL DATABASE
@@ -50,7 +58,7 @@ ynh_remove_systemd_config  --service="$app"
 ynh_script_progression --message="Removing the PostgreSQL database..." --weight=1
 
 # Remove a database if it exists, along with the associated user
-ynh_psql_remove_db --db_user="$db_user" --db_name="$db_name"
+ynh_psql_remove_db --db_user=$db_user --db_name=$db_name
 
 #=================================================
 # REMOVE THE REDIS DATABASE
@@ -58,16 +66,6 @@ ynh_psql_remove_db --db_user="$db_user" --db_name="$db_name"
 ynh_script_progression --message="Removing the redis database..." --weight=1
 
 ynh_redis_remove_db "$redis_db"
-
-#=================================================
-# REMOVE DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Removing dependencies..." --weight=1
-
-# Remove metapackage and its dependencies
-ynh_remove_app_dependencies
-
-ynh_remove_nodejs
 
 #=================================================
 # REMOVE APP MAIN DIR
@@ -82,16 +80,17 @@ ynh_secure_remove --file="$final_path"
 #=================================================
 ynh_script_progression --message="Removing NGINX web server configuration..." --weight=1
 
-# Remove the dedicated nginx config
+# Remove the dedicated NGINX config
 ynh_remove_nginx_config
 
 #=================================================
-# REMOVE LOGROTATE CONFIGURATION
+# REMOVE DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Removing logrotate configuration..." --weight=1
+ynh_script_progression --message="Removing dependencies..." --weight=1
 
-# Remove the app-specific logrotate config
-ynh_remove_logrotate
+# Remove metapackage and its dependencies
+ynh_remove_nodejs
+ynh_remove_app_dependencies
 
 #=================================================
 # SPECIFIC REMOVE
