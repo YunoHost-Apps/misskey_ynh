@@ -14,8 +14,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 
 ynh_clean_setup () {
-	### Remove this function if there's nothing to clean before calling the remove script.
-	true
+	ynh_clean_check_starting
 }
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
@@ -72,22 +71,8 @@ ynh_app_setting_set --app=$app --key=port --value=$port
 ynh_script_progression --message="Installing dependencies..." --weight=3
 
 ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
-
 ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
-
 ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
-
-#=================================================
-# CREATE A POSTGRESQL DATABASE
-#=================================================
-ynh_script_progression --message="Creating a PostgreSQL database..." --weight=2
-
-# Create postgresql database
-db_name=$(ynh_sanitize_dbid --db_name=$app)
-db_user=$db_name
-ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-ynh_psql_test_if_first_run
-ynh_psql_setup_db --db_user=$db_user --db_name=$db_name
 
 #=================================================
 # CREATE DEDICATED USER
@@ -96,6 +81,17 @@ ynh_script_progression --message="Configuring system user..." --weight=2
 
 # Create a system user
 ynh_system_user_create --username=$app --home_dir="$final_path"
+
+#=================================================
+# CREATE A POSTGRESQL DATABASE
+#=================================================
+ynh_script_progression --message="Creating a PostgreSQL database..." --weight=2
+
+db_name=$(ynh_sanitize_dbid --db_name=$app)
+db_user=$db_name
+ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+ynh_psql_test_if_first_run
+ynh_psql_setup_db --db_user=$db_user --db_name=$db_name
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -115,21 +111,11 @@ chown -R $app:www-data "$final_path"
 #=================================================
 ynh_script_progression --message="Configuring NGINX web server..." --weight=3
 
-# Create a dedicated nginx config
+# Create a dedicated NGINX config
 ynh_add_nginx_config
 
 #=================================================
-# SETUP SYSTEMD
-#=================================================
-ynh_script_progression --message="Configuring a systemd service..." --weight=1
-
-env_path="$PATH"
-
-# Create a dedicated systemd config
-ynh_add_systemd_config
-
-#=================================================
-# STORE THE CONFIG FILE CHECKSUM
+# ADD A CONFIGURATION
 #=================================================
 ynh_script_progression --message="Adding a configuration file..." --weight=1
 
@@ -140,16 +126,24 @@ ynh_app_setting_set --app="$app" --key=redis_db --value="$redis_db"
 ynh_add_config --template="../conf/default.yml" --destination="$final_path/.config/default.yml"
 
 #=================================================
-# INSTALLING MISKKEY
+# BUILD APP
 #=================================================
-ynh_script_progression --message="Installing Misskey..." --weight=15
+ynh_script_progression --message="Building app..." --weight=15
 
 pushd "$final_path"
 	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn add ts-node webpack
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production yarn build
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn run init
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn add ts-node webpack
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production yarn build
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn run init
 popd
+
+#=================================================
+# SETUP SYSTEMD
+#=================================================
+ynh_script_progression --message="Configuring a systemd service..." --weight=1
+
+# Create a dedicated systemd config
+ynh_add_systemd_config
 
 #=================================================
 # SETUP LOGROTATE
@@ -172,7 +166,7 @@ yunohost service add $app --description="A interplanetary blogging platform" --l
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action=start --log_path=systemd --line_match="All workers started"
+ynh_systemd_action --service_name=$app --action="start" --log_path=systemd --line_match="All workers started"
 
 #=================================================
 # SETUP SSOWAT
