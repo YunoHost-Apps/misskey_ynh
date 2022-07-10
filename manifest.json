@@ -6,7 +6,7 @@
         "en": "Microblogging platform",
         "fr": "Platforme de Microblogging"
     },
-    "version": "12.110.1~ynh2",
+    "version": "12.112.3~ynh1",
     "url": "https://misskey-hub.net/",
     "upstream": {
         "license": "AGPL-3.0",
@@ -18,7 +18,7 @@
         "name": "Anmol Sharma"
     },
     "requirements": {
-        "yunohost": ">= 4.3.0"
+        "yunohost": ">= 11.0.7"
     },
     "multi_instance": true,
     "services": [
