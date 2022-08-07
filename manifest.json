@@ -11,7 +11,8 @@
     "upstream": {
         "license": "AGPL-3.0",
         "website": "https://misskey-hub.net/",
-        "code": "https://github.com/misskey-dev/misskey"
+        "code": "https://github.com/misskey-dev/misskey",
+        "cpe": "cpe:2.3:a:misskey:misskey"
     },
     "license": "AGPL-3.0",
     "maintainer": {
