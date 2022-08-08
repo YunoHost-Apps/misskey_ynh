@@ -18,7 +18,8 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 Misskey is a decentralized microblogging platform. Since it exists within the Fediverse (a universe where various social media platforms are organized), it is mutually linked with other social media platforms.
 
 
-**Shipped version:** 12.110.1~ynh2
+**Shipped version:** 12.118.1~ynh1
+
 
 ## Screenshots
 
