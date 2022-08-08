@@ -20,6 +20,7 @@ Misskey is a decentralized microblogging platform. Since it exists within the Fe
 
 **Shipped version:** 12.110.1~ynh2
 
+
 ## Screenshots
 
 ![Screenshot of Misskey](./doc/screenshots/screenshot-desktop.png)
