@@ -6,19 +6,20 @@
         "en": "Microblogging platform",
         "fr": "Platforme de Microblogging"
     },
-    "version": "12.110.1~ynh2",
+    "version": "12.118.1~ynh1",
     "url": "https://misskey-hub.net/",
     "upstream": {
         "license": "AGPL-3.0",
         "website": "https://misskey-hub.net/",
-        "code": "https://github.com/misskey-dev/misskey"
+        "code": "https://github.com/misskey-dev/misskey",
+        "cpe": "cpe:2.3:a:misskey:misskey"
     },
     "license": "AGPL-3.0",
     "maintainer": {
         "name": "Anmol Sharma"
     },
     "requirements": {
-        "yunohost": ">= 4.3.0"
+        "yunohost": ">= 11.0.9"
     },
     "multi_instance": true,
     "services": [
