@@ -138,7 +138,7 @@ ynh_script_progression --message="Building app..."
 pushd "$final_path"
     ynh_use_nodejs
     	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn run clean-all
-	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH sudo corepack enable
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH corepack enable
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn set version berry
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn install
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production yarn build
