@@ -72,7 +72,6 @@ ynh_script_progression --message="Installing dependencies..." --weight=3
 
 ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
-ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
 # CREATE DEDICATED USER
@@ -132,6 +131,9 @@ ynh_script_progression --message="Building app..." --weight=15
 
 pushd "$final_path"
 	ynh_use_nodejs
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH corepack enable
+        ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH corepack prepare yarn@stable --activate
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn set version berry	
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn add ts-node webpack
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production yarn build
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn run init
