@@ -120,7 +120,6 @@ ynh_script_progression --message="Upgrading dependencies..." --weight=5
 
 ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
-ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
 # NGINX CONFIGURATION
@@ -137,7 +136,10 @@ ynh_script_progression --message="Building app..."
 
 pushd "$final_path"
     ynh_use_nodejs
-    ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn cleanall
+    	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn run clean-all
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH corepack enable
+        ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH corepack prepare yarn@stable --activate
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn set version berry	
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn install
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production yarn build
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn migrate
