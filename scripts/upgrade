@@ -107,6 +107,7 @@ then
 
 	# Download, check integrity, uncompress and patch the source from app.src
 	ynh_setup_source --dest_dir="$final_path" --keep=".config/default.yml"
+        git submodule update --init
 fi
 
 chmod 750 "$final_path"
