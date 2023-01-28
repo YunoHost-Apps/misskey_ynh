@@ -130,7 +130,7 @@ ynh_add_config --template="../conf/default.yml" --destination="$final_path/.conf
 ynh_script_progression --message="Building app..." --weight=15
 
 pushd "$final_path"
-	git submodule update --init
+	ynh_exec_warn_less git submodule update --init
 	ynh_use_nodejs
 	corepack enable
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm install --frozen-lockfile
