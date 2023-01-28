@@ -100,7 +100,6 @@ ynh_script_progression --message="Setting up source files..." --weight=3
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path"
-ynh_exec_warn_less git submodule update --init
 
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
@@ -133,6 +132,7 @@ ynh_script_progression --message="Building app..." --weight=15
 pushd "$final_path"
 	ynh_use_nodejs
 	corepack enable
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH git submodule update --init
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm install --frozen-lockfile
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_OPTIONS=--max_old_space_size=8192 pnpm -r build
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm run init
