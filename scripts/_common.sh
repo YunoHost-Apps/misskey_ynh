@@ -7,7 +7,7 @@
 NODEJS_VERSION="18.13.0"
 
 # dependencies used by the app
-pkg_dependencies="ffmpeg postgresql"
+pkg_dependencies="ffmpeg postgresql build-essential"
 
 #=================================================
 # PERSONAL HELPERS
