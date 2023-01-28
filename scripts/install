@@ -101,6 +101,8 @@ ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path"
 
+ynh_exec_warn_less git submodule update --init
+
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
 chown -R $app:www-data "$final_path"
@@ -124,14 +126,6 @@ ynh_app_setting_set --app="$app" --key=redis_db --value="$redis_db"
 
 ynh_add_config --template="../conf/default.yml" --destination="$final_path/.config/default.yml"
 
-#=================================================
-# ADD GIT SUBMODULE
-#=================================================
-ynh_script_progression --message="Adding submodule update..." --weight=1
-
-cd $final_path 
-git checkout master
-git submodule update --init
 
 #=================================================
 # BUILD APP
