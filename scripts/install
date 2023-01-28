@@ -98,11 +98,13 @@ ynh_psql_setup_db --db_user=$db_user --db_name=$db_name
 ynh_script_progression --message="Setting up source files..." --weight=3
 
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
-# Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$final_path"
+# Note: We use git instead of ynh_setup_source, cause this repo use submodules
+git clone https://github.com/misskey-dev/misskey.git "$final_path" --quiet
 
-ynh_exec_warn_less git checkout master
-ynh_exec_warn_less git submodule update --init
+pushd "$final_path"
+    git checkout master
+    git submodule update --init
+popd
 
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
@@ -136,7 +138,6 @@ ynh_script_progression --message="Building app..." --weight=15
 pushd "$final_path"
 	ynh_use_nodejs
 	corepack enable
-	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production git submodule update --init
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm install --frozen-lockfile
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production pnpm build
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm run init
