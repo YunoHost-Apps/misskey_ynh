@@ -136,8 +136,9 @@ ynh_script_progression --message="Building app..." --weight=15
 pushd "$final_path"
 	ynh_use_nodejs
 	corepack enable
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production git submodule update --init
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm install --frozen-lockfile
-	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_OPTIONS=--max_old_space_size=8192 pnpm -r build
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production pnpm build
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm run init
 popd
 
