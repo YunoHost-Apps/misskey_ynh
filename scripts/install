@@ -102,7 +102,7 @@ ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 git clone https://github.com/misskey-dev/misskey.git "$final_path" --quiet
 
 pushd "$final_path"
-    git checkout $COMMIT
+    git checkout $COMMIT --quiet
     git submodule update --init
 popd
 
