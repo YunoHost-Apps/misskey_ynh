@@ -6,6 +6,8 @@
 
 NODEJS_VERSION="18.13.0"
 
+COMMIT="857042c9d39d1b799432d2c74cb6d0a7fe6acf64"
+
 # dependencies used by the app
 pkg_dependencies="ffmpeg postgresql build-essential"
 
