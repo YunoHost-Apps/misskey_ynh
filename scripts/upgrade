@@ -106,7 +106,7 @@ then
 	ynh_script_progression --message="Upgrading source files..."
 
 	pushd "$final_path"
-		git config --global --add safe.directory $final_path
+		sudo git config --global --add safe.directory $final_path
 		git checkout master
 		git pull --quiet
 		git checkout $COMMIT --quiet
