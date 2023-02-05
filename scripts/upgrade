@@ -108,6 +108,8 @@ then
 	pushd "$final_path"
 		git config --system --add safe.directory $final_path
 		git checkout master
+		git config --system --add safe.directory $final_path/fluent-emojis
+		git config --system --add safe.directory $final_path/misskey-assets
 		git pull --quiet
 		git checkout $COMMIT --quiet
 		git submodule update --init --quiet
