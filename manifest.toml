@@ -15,7 +15,7 @@ website = "https://misskey-hub.net/"
 code = "https://github.com/misskey-dev/misskey"
 
 [integration]
-yunohost = ">= 11.1.15"
+yunohost = ">= 11.1.16"
 architectures = ["amd64", "arm64" ]
 multi_instance = true
 ldap = false
