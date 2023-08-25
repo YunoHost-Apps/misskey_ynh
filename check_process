@@ -1,4 +1,6 @@
 ;; Test complet
+        ; pre-install
+                git config --system --add safe.directory /var/www/misskey
 	; Manifest
 		domain="domain.tld"
 		is_public=1
@@ -19,6 +21,4 @@
 Email=
 Notification=
 ;;; Upgrade options
-	; commit=d0b5378eb020818020114d647a56158caed1600e
-		name=12.109.2~ynh1
 		manifest_arg=domain=DOMAIN&path=PATH&admin=USER&language=fr&is_public=1&password=pass&port=666&

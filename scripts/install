@@ -72,7 +72,6 @@ ynh_script_progression --message="Installing dependencies..." --weight=3
 
 ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
-ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
 # CREATE DEDICATED USER
@@ -99,8 +98,13 @@ ynh_psql_setup_db --db_user=$db_user --db_name=$db_name
 ynh_script_progression --message="Setting up source files..." --weight=3
 
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
-# Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$final_path"
+# Note: We use git instead of ynh_setup_source, cause this repo use submodules
+git clone https://github.com/misskey-dev/misskey.git "$final_path" --quiet
+
+pushd "$final_path"
+    git checkout $COMMIT --quiet
+    git submodule update --init
+popd
 
 chmod 750 "$final_path"
 chmod -R o-rwx "$final_path"
@@ -125,6 +129,7 @@ ynh_app_setting_set --app="$app" --key=redis_db --value="$redis_db"
 
 ynh_add_config --template="../conf/default.yml" --destination="$final_path/.config/default.yml"
 
+
 #=================================================
 # BUILD APP
 #=================================================
@@ -132,9 +137,10 @@ ynh_script_progression --message="Building app..." --weight=15
 
 pushd "$final_path"
 	ynh_use_nodejs
-	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn add ts-node webpack
-	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production yarn build
-	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn run init
+	corepack enable
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm install --frozen-lockfile
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production pnpm build
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm run init
 popd
 
 #=================================================
