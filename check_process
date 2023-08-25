@@ -1,4 +1,6 @@
 ;; Test complet
+        ; pre-install
+                git config --system --add safe.directory /var/www/misskey
 	; Manifest
 		domain="domain.tld"
 		is_public=1
