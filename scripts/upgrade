@@ -54,13 +54,16 @@ ynh_script_progression --message="Upgrading dependencies..." --weight=5
 
 ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
-
 # Create a dedicated NGINX config
 ynh_add_nginx_config
+
+# Create a dedicated systemd config
+ynh_add_systemd_config
+
+# Use logrotate to manage app-specific logfile(s)
+ynh_use_logrotate --non-append
+
+yunohost service add $app --description="A interplanetary blogging platform" --log="/var/log/$app/$app.log"
 
 #=================================================
 # BUILD APP
@@ -74,31 +77,6 @@ pushd "$install_dir"
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production pnpm build
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm migrate
 popd
-
-#=================================================
-# SETUP SYSTEMD
-#=================================================
-ynh_script_progression --message="Upgrading systemd configuration..." --weight=1
-
-# Create a dedicated systemd config
-ynh_add_systemd_config
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# SETUP LOGROTATE
-#=================================================
-ynh_script_progression --message="Upgrading logrotate configuration..." --weight=1
-
-# Use logrotate to manage app-specific logfile(s)
-ynh_use_logrotate --non-append
-
-#=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
-
-yunohost service add $app --description="A interplanetary blogging platform" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
