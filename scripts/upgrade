@@ -24,6 +24,15 @@ ynh_script_progression --message="Stopping a systemd service..." --weight=1
 ynh_systemd_action --service_name=$app --action="stop" --log_path=systemd --line_match="Stopped"
 
 #=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+
+if ynh_compare_current_package_version --comparison lt --version 12.109.2~ynh1
+then
+	ynh_die --message="Sorry, this version is not upgradable to the latest version :("
+fi
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
@@ -60,10 +69,10 @@ ynh_script_progression --message="Building app..."
 
 pushd "$install_dir"
     ynh_use_nodejs
-    ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn cleanall
-	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn install
-	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production yarn build
-	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH yarn migrate
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm clean-all
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm install --frozen-lockfile
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH NODE_ENV=production pnpm build
+	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH pnpm migrate
 popd
 
 #=================================================
