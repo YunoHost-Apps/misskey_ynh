@@ -5,23 +5,24 @@ It shall NOT be edited by hand.
 
 # Misskey pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/misskey.svg)](https://dash.yunohost.org/appci/app/misskey) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/misskey.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/misskey.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/misskey.svg)](https://dash.yunohost.org/appci/app/misskey) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/misskey.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/misskey.maintain.svg)
+
 [![Installer Misskey avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=misskey)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer Misskey rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer Misskey rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
 Misskey est une plateforme de microblogging décentralisée. Puisqu'il existe au sein du Fediverse (un univers où diverses plateformes de médias sociaux sont organisées), il est mutuellement lié à d'autres plateformes de médias sociaux.
 
 **Version incluse :** 12.119.2~ynh1
 
-## Captures d'écran
+## Captures d’écran
 
-![Capture d'écran de Misskey](./doc/screenshots/screenshot-desktop.png)
+![Capture d’écran de Misskey](./doc/screenshots/screenshot-desktop.png)
 
 ## Avertissements / informations importantes
 
@@ -49,9 +50,9 @@ screen -r
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <https://misskey-hub.net/>
-* Dépôt de code officiel de l'app : <https://github.com/misskey-dev/misskey>
-* Documentation YunoHost pour cette app : <https://yunohost.org/app_misskey>
+* Site officiel de l’app : <https://misskey-hub.net/>
+* Dépôt de code officiel de l’app : <https://github.com/misskey-dev/misskey>
+* YunoHost Store: <https://apps.yunohost.org/app/misskey>
 * Signaler un bug : <https://github.com/YunoHost-Apps/misskey_ynh/issues>
 
 ## Informations pour les développeurs
@@ -66,4 +67,4 @@ ou
 sudo yunohost app upgrade misskey -u https://github.com/YunoHost-Apps/misskey_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
