@@ -29,7 +29,7 @@ Misskey is a decentralized microblogging platform. Since it exists within the Fe
 
 * Official app website: <https://misskey-hub.net/>
 * Upstream app code repository: <https://github.com/misskey-dev/misskey>
-* YunoHost documentation for this app: <https://yunohost.org/app_misskey>
+* YunoHost Store: <https://apps.yunohost.org/app/misskey>
 * Report a bug: <https://github.com/YunoHost-Apps/misskey_ynh/issues>
 
 ## Developer info
