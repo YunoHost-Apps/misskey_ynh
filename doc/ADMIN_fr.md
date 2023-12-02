@@ -1,16 +1,9 @@
-### Points importants à lire avant l'installation
+## Mise à jour
 
-- Le premier compte créé sera un utilisateur administrateur et disposera de tous les droits d'administrateur.
+**`screen` (ou `tmux`) peut être utilisé pour vous assurer que votre session n'est pas interrompue en cas de problème de connection.**
+Consultez ce [tutoriel](https://www.howtogeek.com/662422/how-to-use-linuxs-screen-command/) pour plus de détails.
 
-Utiliser *screen* en cas de déconnexion
-
-``` 
-sudo apt-get install screen
-screen
-sudo yunohost app install https://github.com/YunoHost-Apps/misskey_ynh.git
 ```
-Récupérer après déconnexion :
-```
-screen -d
-screen -r
+$ screen
+$ sudo yunohost app upgrade __APP__
 ```
