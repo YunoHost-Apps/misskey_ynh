@@ -41,12 +41,7 @@ ynh_add_config --template="default.yml" --destination="$install_dir/.config/defa
 #=================================================
 ynh_script_progression --message="Building app..." --weight=15
 
-pushd "$install_dir"
-    ynh_use_nodejs
-    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" yarn add ts-node webpack
-    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" NODE_ENV=production yarn build
-    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" yarn run init
-popd
+misskey_build
 
 #=================================================
 # SYSTEM CONFIGURATION

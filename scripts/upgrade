@@ -51,13 +51,7 @@ chown -R "$app:www-data" "$install_dir"
 #=================================================
 ynh_script_progression --message="Building app..."
 
-pushd "$install_dir"
-    ynh_use_nodejs
-    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" yarn cleanall
-    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" yarn install
-    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" NODE_ENV=production yarn build
-    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" yarn migrate
-popd
+misskey_build
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
