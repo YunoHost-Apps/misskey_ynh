@@ -9,13 +9,15 @@
 
 Utiliser *screen* en cas de déconnexion
 
-``` 
+```bash
 sudo apt-get install screen
 screen
 sudo yunohost app install https://github.com/YunoHost-Apps/misskey_ynh.git
 ```
+
 Récupérer après déconnexion :
-```
+
+```bash
 screen -d
 screen -r
 ```

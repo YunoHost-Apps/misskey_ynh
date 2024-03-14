@@ -9,13 +9,15 @@
 
 Using screen in case of disconnects
 
-``` 
+```bash
 sudo apt-get install screen
 screen
 sudo yunohost app install https://github.com/YunoHost-Apps/misskey_ynh.git
 ```
+
 Recover after disconnect:
-```
+
+```bash
 screen -d
 screen -r
 ```
