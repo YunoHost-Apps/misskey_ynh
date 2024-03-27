@@ -41,7 +41,7 @@ ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
 ynh_script_progression --message="Upgrading source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$install_dir" --keep=".config/default.yml"
+ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep=".config/default.yml"
 
 chmod -R o-rwx "$install_dir"
 chown -R "$app:www-data" "$install_dir"
