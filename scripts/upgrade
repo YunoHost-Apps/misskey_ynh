@@ -21,7 +21,7 @@ fi
 ynh_script_progression --message="Stopping $app's systemd service..." --weight=1
 
 # Stop bservice before backup, to not loose message in case of failed upgrade and restore
-ynh_systemd_action --service_name="$app" --action="stop" --log_path=systemd --line_match="Stopped"
+ynh_systemd_action --service_name="$app" --action="stop" --log_path=systemd
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
