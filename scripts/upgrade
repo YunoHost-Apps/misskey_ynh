@@ -51,7 +51,7 @@ chown -R "$app:www-data" "$install_dir"
 #=================================================
 ynh_script_progression --message="Building app..."
 
-misskey_build
+misskey_upgrade
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
