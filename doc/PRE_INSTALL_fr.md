@@ -1,22 +1,6 @@
 ### Points importants à lire avant l'installation
 
-- *Misskey* nécessite un domaine racine dédié, par ex. `misskey.domain.tld`
+- *Misskey* nécessite un domaine racine dédié, par ex. `misskey.domain.tld`, qui ne peut être changé après installation.
 - *Misskey* peut prendre un certain temps à installer, alors prenez un peu de temps et prenez un café.
-- Si l'installation à partir de la ligne de commande, l'utilisation de l'écran est réenregistrée pour éviter la déconnexion. Voir ci-dessous.
-- Après l'installation, la première page peut prendre du temps à charger et peut afficher une erreur de délai d'attente. Donnez-lui le temps de se préparer pour vous. Actualiser la page après 2-3 minutes.
+- Après l'installation, la première page peut prendre du temps à charger et peut afficher une erreur de délai d'attente. Donnez-lui le temps de se préparer pour vous. Actualisez la page après 2-3 minutes.
 - Le premier compte créé sera un utilisateur administrateur et disposera de tous les droits d'administrateur.
-
-Utiliser *screen* en cas de déconnexion
-
-```bash
-sudo apt-get install screen
-screen
-sudo yunohost app install https://github.com/YunoHost-Apps/misskey_ynh.git
-```
-
-Récupérer après déconnexion :
-
-```bash
-screen -d
-screen -r
-```
