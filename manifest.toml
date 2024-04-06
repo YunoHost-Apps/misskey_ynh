@@ -9,7 +9,7 @@ description.fr = "Platforme de Microblogging"
 
 version = "12.119.2~ynh1"
 
-maintainers = [""]
+maintainers = []
 
 [upstream]
 license = "AGPL-3.0"
