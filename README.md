@@ -9,7 +9,7 @@ It shall NOT be edited by hand.
 
 [![Install Misskey with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=misskey)
 
-*[Read this README is other languages.](./ALL_README.md)*
+*[Read this README in other languages.](./ALL_README.md)*
 
 > *This package allows you to install Misskey quickly and simply on a YunoHost server.*  
 > *If you don't have YunoHost, please consult [the guide](https://yunohost.org/install) to learn how to install it.*
@@ -24,30 +24,6 @@ Misskey is a decentralized microblogging platform. Since it exists within the Fe
 ## Screenshots
 
 ![Screenshot of Misskey](./doc/screenshots/screenshot-desktop.png)
-
-## Disclaimers / important information
-
-### Important points to read before installing
-
-- *Misskey* requires a dedicated root domain, e.g. `misskey.domain.tld`
-- Due to Cypress dependency, *Misskey* only works on 64-bit CPU machines.
-- *Misskey* can take quite some time to install (more then 30 minutes). So take out some time and grab yourself a coffee.
-- If installing from command line, using `screen` is recommended to avoid disconnection. See below.
-- After installation, first page can take time to load and may show timeout error. Give it time to make itself ready for you. Refresh the page after 2 or 3 minutes.
-- The first account created will be an admin user and will have all the admin rights.
-
-Using screen in case of disconnects
-
-``` 
-sudo apt-get install screen
-screen
-sudo yunohost app install https://github.com/YunoHost-Apps/misskey_ynh.git
-```
-Recover after disconnect:
-```
-screen -d
-screen -r
-```
 
 ## Documentation and resources
 

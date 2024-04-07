@@ -1,0 +1,11 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/tests.v1.schema.json
+
+test_format = 1.0
+
+[default]
+    exclude = ["change_url"]
+    # ------------
+    # Tests to run
+    # ------------
+
+    test_upgrade_from.d0b5378eb020818020114d647a56158caed1600e.name = "12.109.2~ynh1"
