@@ -7,7 +7,7 @@ name = "Misskey"
 description.en = "Microblogging platform"
 description.fr = "Platforme de Microblogging"
 
-version = "12.119.2~ynh1"
+version = "12.119.2~ynh2"
 
 maintainers = []
 
