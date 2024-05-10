@@ -3,7 +3,7 @@
 请勿手动编辑。
 -->
 
-# YunoHost 的 Misskey
+# YunoHost 上的 Misskey
 
 [![集成程度](https://dash.yunohost.org/integration/misskey.svg)](https://dash.yunohost.org/appci/app/misskey) ![工作状态](https://ci-apps.yunohost.org/ci/badges/misskey.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/misskey.maintain.svg)
 
@@ -19,7 +19,7 @@
 Misskey is a decentralized microblogging platform. Since it exists within the Fediverse (a universe where various social media platforms are organized), it is mutually linked with other social media platforms.
 
 
-**分发版本：** 12.119.2~ynh2
+**分发版本：** 13.14.2~ynh1
 
 ## 截图
 
