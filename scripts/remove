@@ -26,24 +26,10 @@ ynh_remove_logrotate
 # Remove the dedicated NGINX config
 ynh_remove_nginx_config
 
-#=================================================
-# REMOVE THE REDIS DATABASE
-#=================================================
-ynh_script_progression --message="Removing the redis database..." --weight=1
-
 ynh_redis_remove_db "$redis_db"
-
-#=================================================
-# REMOVE DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Removing NodeJS..." --weight=1
 
 # Remove metapackage and its dependencies
 ynh_remove_nodejs
-
-#=================================================
-# REMOVE VARIOUS FILES
-#=================================================
 
 # Remove the log files
 ynh_secure_remove --file="/var/log/$app"
