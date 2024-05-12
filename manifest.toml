@@ -63,10 +63,5 @@ ram.runtime = "50M"
         "postgresql"
     ]
 
-    [resources.apt.extras.yarn]
-    repo = "deb https://dl.yarnpkg.com/debian/ stable main"
-    key = "https://dl.yarnpkg.com/debian/pubkey.gpg"
-    packages = ["yarn"]
-
     [resources.database]
     type = "postgresql"
