@@ -3,7 +3,7 @@
 请勿手动编辑。
 -->
 
-# YunoHost 的 Misskey
+# YunoHost 上的 Misskey
 
 [![集成程度](https://dash.yunohost.org/integration/misskey.svg)](https://dash.yunohost.org/appci/app/misskey) ![工作状态](https://ci-apps.yunohost.org/ci/badges/misskey.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/misskey.maintain.svg)
 
