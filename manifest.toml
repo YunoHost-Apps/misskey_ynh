@@ -19,7 +19,8 @@ cpe = "cpe:2.3:a:misskey:misskey"
 fund = "https://patreon.com/syuilo"
 
 [integration]
-yunohost = ">= 11.2.12"
+yunohost = ">= 11.2.18"
+helpers_version = "2.1"
 architectures = ["amd64", "arm64"]
 multi_instance = true
 ldap = false
