@@ -11,52 +11,51 @@ source /usr/share/yunohost/helpers
 #=================================================
 # REINSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Reinstalling NodeJS..." --weight=5
+ynh_script_progression "Reinstalling NodeJS..."
 
 # Define and install dependencies
-ynh_install_nodejs --nodejs_version="$NODEJS_VERSION"
+ynh_nodejs_install
 
 #=================================================
 # RESTORE THE APP MAIN DIR
 #=================================================
-ynh_script_progression --message="Restoring the app main directory..." --weight=1
+ynh_script_progression "Restoring the app main directory..."
 
-ynh_restore_file --origin_path="$install_dir"
+ynh_restore "$install_dir"
 
-chmod -R o-rwx "$install_dir"
-chown -R $app:www-data "$install_dir"
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
 #=================================================
 # RESTORE THE POSTGRESQL DATABASE
 #=================================================
-ynh_script_progression --message="Restoring the PostgreSQL database..." --weight=1
+ynh_script_progression "Restoring the PostgreSQL database..."
 
-ynh_psql_connect_as --user="$db_user" --password="$db_pwd" --database="$db_name" < ./db.sql
+ynh_psql_db_shell < ./db.sql
 
 #=================================================
 # RESTORE SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Restoring system configurations related to $app..." --weight=1
+ynh_script_progression "Restoring system configurations related to $app..."
 
-ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
+ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 
-ynh_restore_file --origin_path="/etc/systemd/system/$app.service"
+ynh_restore "/etc/systemd/system/$app.service"
 systemctl enable "$app.service" --quiet
 yunohost service add "$app" --description="A interplanetary blogging platform" --log="/var/log/$app/$app.log"
 
-ynh_restore_file --origin_path="/etc/logrotate.d/$app"
+ynh_restore "/etc/logrotate.d/$app"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Reloading NGINX web server and $app's service..." --weight=1
+ynh_script_progression "Reloading NGINX web server and $app's service..."
 
-ynh_systemd_action --service_name="$app" --action="start" --log_path="systemd" --line_match="All workers started"
+ynh_systemctl --service="$app" --action="start" --log_path="systemd" --wait_until="All workers started"
 
-ynh_systemd_action --service_name=nginx --action=reload
+ynh_systemctl --service=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Restoration completed for $app" --last
+ynh_script_progression "Restoration completed for $app"

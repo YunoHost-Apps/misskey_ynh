@@ -11,72 +11,71 @@ source /usr/share/yunohost/helpers
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
 
-if ynh_compare_current_package_version --comparison lt --version 12.105.0~ynh1; then
-    ynh_die --message="Sorry, this version is not upgradable to the latest version :("
+if ynh_app_upgrading_from_version_before 12.105.0~ynh1; then
+    ynh_die "Sorry, this version is not upgradable to the latest version :("
 fi
 
 #=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Stopping $app's systemd service..." --weight=1
+ynh_script_progression "Stopping $app's systemd service..."
 
 # Stop bservice before backup, to not loose message in case of failed upgrade and restore
-ynh_systemd_action --service_name="$app" --action="stop" --log_path=systemd
+ynh_systemctl --service="$app" --action="stop" --log_path=systemd
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-# ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
+# ynh_script_progression "Ensuring downward compatibility..."
 
 #=================================================
 # UPGRADE DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Upgrading NodeJS..." --weight=5
+ynh_script_progression "Upgrading NodeJS..."
 
-ynh_install_nodejs --nodejs_version=$NODEJS_VERSION
+ynh_nodejs_install
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Upgrading source files..."
+ynh_script_progression "Upgrading source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep=".config/default.yml"
+ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".config/default.yml"
 
-chmod -R o-rwx "$install_dir"
-chown -R "$app:www-data" "$install_dir"
-
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
+#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R "$app:www-data" "$install_dir"
 #=================================================
 # BUILD APP
 #=================================================
-ynh_script_progression --message="Building app..."
+ynh_script_progression "Building app..."
 
 misskey_build
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
+ynh_script_progression "Upgrading system configurations related to $app..."
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 # Create a dedicated systemd config
-ynh_add_systemd_config
+ynh_config_add_systemd
 yunohost service add "$app" --description="A interplanetary blogging platform" --log="/var/log/$app/$app.log"
 
 # Use logrotate to manage app-specific logfile(s)
-ynh_use_logrotate --non-append
+ynh_config_add_logrotate
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting $app's systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemd_action --service_name="$app" --action="start" --log_path=systemd --line_match="All workers started"
+ynh_systemctl --service="$app" --action="start" --log_path=systemd --wait_until="All workers started"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --last
+ynh_script_progression "Upgrade of $app completed"

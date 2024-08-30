@@ -1,26 +1,18 @@
 #!/bin/bash
 
 #=================================================
-# COMMON VARIABLES
+# COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
 
-NODEJS_VERSION="16.15.0"
-
-#=================================================
-# PERSONAL HELPERS
-#=================================================
+nodejs_version="16.15.0"
 
 misskey_build() {
     pushd "$install_dir"
-        ynh_use_nodejs
-        ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" NODE_ENV=production yarn add ts-node webpack
-        ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" NODE_ENV=production yarn build
-        ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" NODE_ENV=production yarn run init
+
+        ynh_hide_warnings ynh_exec_as_app node_load_PATH" NODE_ENV=production yarn add ts-node webpack
+        ynh_hide_warnings ynh_exec_as_app node_load_PATH" NODE_ENV=production yarn build
+        ynh_hide_warnings ynh_exec_as_app node_load_PATH" NODE_ENV=production yarn run init
     popd
 
-    ynh_secure_remove --file="$install_dir/.cache"
+    ynh_safe_rm "$install_dir/.cache"
 }
-
-#=================================================
-# EXPERIMENTAL HELPERS
-#=================================================
