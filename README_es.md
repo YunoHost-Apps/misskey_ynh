@@ -19,7 +19,7 @@ No se debe editar a mano.
 Misskey is a decentralized microblogging platform. Since it exists within the Fediverse (a universe where various social media platforms are organized), it is mutually linked with other social media platforms.
 
 
-**Versión actual:** 2024.3.1~ynh1
+**Versión actual:** 2024.10.0~ynh1
 
 ## Capturas
 
@@ -34,7 +34,7 @@ Misskey is a decentralized microblogging platform. Since it exists within the Fe
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/misskey_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/misskey_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
