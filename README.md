@@ -5,7 +5,9 @@ It shall NOT be edited by hand.
 
 # Misskey for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/misskey.svg)](https://dash.yunohost.org/appci/app/misskey) ![Working status](https://ci-apps.yunohost.org/ci/badges/misskey.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/misskey.maintain.svg)
+[![Integration level](https://apps.yunohost.org/badge/integration/misskey)](https://ci-apps.yunohost.org/ci/apps/misskey/)
+![Working status](https://apps.yunohost.org/badge/state/misskey)
+![Maintenance status](https://apps.yunohost.org/badge/maintained/misskey)
 
 [![Install Misskey with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=misskey)
 
