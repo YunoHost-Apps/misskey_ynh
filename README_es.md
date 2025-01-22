@@ -21,7 +21,7 @@ No se debe editar a mano.
 Misskey is a decentralized microblogging platform. Since it exists within the Fediverse (a universe where various social media platforms are organized), it is mutually linked with other social media platforms.
 
 
-**Versión actual:** 12.119.2~ynh2
+**Versión actual:** 2024.11.0~ynh1
 
 ## Capturas
 
