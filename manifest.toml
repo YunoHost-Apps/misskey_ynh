@@ -7,7 +7,7 @@ name = "Misskey"
 description.en = "Microblogging platform"
 description.fr = "Platforme de Microblogging"
 
-version = "12.119.2~ynh2"
+version = "2025.1.0~ynh1"
 
 maintainers = []
 
@@ -40,8 +40,8 @@ ram.runtime = "50M" # FIXME: replace with an **estimate** minimum ram requiremen
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/12.119.2.tar.gz"
-    sha256 = "0620c8d4ee82f3bfa5749197b719cff606628413875589918df58f71cae9df57"
+    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2025.1.0.tar.gz"
+    sha256 = "1ed16d323a84b836a500e66e667620c8301702f0f56df2591ddb0a1ed7d4d911"
 
     autoupdate.strategy = "latest_github_tag"
 
