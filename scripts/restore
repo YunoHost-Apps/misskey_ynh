@@ -50,6 +50,7 @@ pushd "$install_dir"
     ynh_use_nodejs
     env $ynh_node_load_PATH corepack enable
     env $ynh_node_load_PATH npm install -g corepack@latest
+    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" NODE_ENV=production COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm install --frozen-lockfile --aggregate-output
 popd
 
 #=================================================
