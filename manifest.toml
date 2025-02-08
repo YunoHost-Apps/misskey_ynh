@@ -22,11 +22,14 @@ fund = "https://patreon.com/syuilo"
 yunohost = ">= 11.2.12"
 architectures = ["amd64", "arm64"]
 multi_instance = true
+
 ldap = false
+
 sso = true
-disk = "50M" # FIXME: replace with an **estimate** minimum disk requirement. e.g. 20M, 400M, 1G, ...
-ram.build = "50M" # FIXME: replace with an **estimate** minimum ram requirement. e.g. 50M, 400M, 1G, ...
-ram.runtime = "50M" # FIXME: replace with an **estimate** minimum ram requirement. e.g. 50M, 400M, 1G, ...
+
+disk = "50M"
+ram.build = "50M"
+ram.runtime = "50M"
 
 [install]
     [install.domain]
@@ -42,8 +45,12 @@ ram.runtime = "50M" # FIXME: replace with an **estimate** minimum ram requiremen
     [resources.sources.main]
     url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2025.2.0.tar.gz"
     sha256 = "c8917c58d6407158d170e73003ee610511077d56e55480051621d97d9e93c436"
-
     autoupdate.strategy = "latest_github_tag"
+
+    [resources.sources.emojis]
+    url = "https://github.com/misskey-dev/emojis/archive/cae981eb4c5189ea9ea3230e83b876a5068df7d1.tar.gz"
+    sha256 = "ae155e4bf26bbce83e67db34b353613e1ad90ea27da20fc2d74df93b3a5e3d12"
+    autoupdate.strategy = "latest_github_commit"
 
     [resources.system_user]
 

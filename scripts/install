@@ -21,6 +21,7 @@ ynh_script_progression --message="Setting up source files..." --weight=3
 
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
+ynh_setup_source --dest_dir="$install_dir/fluent-emojis" --source_id="emojis"
 
 chmod -R o-rwx "$install_dir"
 chown -R "$app:www-data" "$install_dir"
@@ -41,7 +42,14 @@ ynh_add_config --template="default.yml" --destination="$install_dir/.config/defa
 #=================================================
 ynh_script_progression --message="Building app..." --weight=15
 
-misskey_build
+pushd "$install_dir"
+    ynh_use_nodejs
+    env $ynh_node_load_PATH corepack enable
+    env $ynh_node_load_PATH npm install -g corepack@latest
+    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" NODE_ENV=production COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm install --frozen-lockfile --aggregate-output
+    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" NODE_ENV=production COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm build
+    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" NODE_ENV=production COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm migrate
+popd
 
 #=================================================
 # SYSTEM CONFIGURATION
@@ -64,10 +72,10 @@ ynh_use_logrotate
 ynh_script_progression --message="Starting $app's systemd service..." --weight=1
 
 # Start a systemd service
-ynh_systemd_action --service_name="$app" --action="start" --log_path=systemd --line_match="All workers started"
+ynh_systemd_action --service_name="$app" --action="start" --log_path="/var/log/$app/$app.log" --line_match="ow listening on port"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed"
+ynh_script_progression --message="Installation of $app completed" --last
