@@ -46,6 +46,12 @@ yunohost service add "$app" --description="A interplanetary blogging platform" -
 
 ynh_restore_file --origin_path="/etc/logrotate.d/$app"
 
+pushd "$install_dir"
+    ynh_use_nodejs
+    env $ynh_node_load_PATH corepack enable
+    env $ynh_node_load_PATH npm install -g corepack@latest
+popd
+
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
