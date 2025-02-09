@@ -5,7 +5,9 @@ No se debe editar a mano.
 
 # Misskey para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/misskey.svg)](https://dash.yunohost.org/appci/app/misskey) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/misskey.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/misskey.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/misskey)](https://ci-apps.yunohost.org/ci/apps/misskey/)
+![Estado funcional](https://apps.yunohost.org/badge/state/misskey)
+![Estado En Mantención](https://apps.yunohost.org/badge/maintained/misskey)
 
 [![Instalar Misskey con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=misskey)
 
@@ -19,7 +21,7 @@ No se debe editar a mano.
 Misskey is a decentralized microblogging platform. Since it exists within the Fediverse (a universe where various social media platforms are organized), it is mutually linked with other social media platforms.
 
 
-**Versión actual:** 12.119.2~ynh2
+**Versión actual:** 2025.2.0~ynh1
 
 ## Capturas
 
@@ -34,7 +36,7 @@ Misskey is a decentralized microblogging platform. Since it exists within the Fe
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/misskey_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/misskey_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 

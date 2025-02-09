@@ -5,7 +5,9 @@ NON debe editarse manualmente.
 
 # Misskey para YunoHost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/misskey.svg)](https://dash.yunohost.org/appci/app/misskey) ![Estado de funcionamento](https://ci-apps.yunohost.org/ci/badges/misskey.status.svg) ![Estado de mantemento](https://ci-apps.yunohost.org/ci/badges/misskey.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/misskey)](https://ci-apps.yunohost.org/ci/apps/misskey/)
+![Estado de funcionamento](https://apps.yunohost.org/badge/state/misskey)
+![Estado de mantemento](https://apps.yunohost.org/badge/maintained/misskey)
 
 [![Instalar Misskey con YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=misskey)
 
@@ -19,7 +21,7 @@ NON debe editarse manualmente.
 Misskey is a decentralized microblogging platform. Since it exists within the Fediverse (a universe where various social media platforms are organized), it is mutually linked with other social media platforms.
 
 
-**Versión proporcionada:** 12.119.2~ynh2
+**Versión proporcionada:** 2025.2.0~ynh1
 
 ## Capturas de pantalla
 

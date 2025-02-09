@@ -45,13 +45,21 @@ systemctl enable "$app.service" --quiet
 yunohost service add "$app" --description="A interplanetary blogging platform" --log="/var/log/$app/$app.log"
 
 ynh_restore_file --origin_path="/etc/logrotate.d/$app"
+ynh_restore_file --origin_path="/var/log/$app/"
+
+pushd "$install_dir"
+    ynh_use_nodejs
+    env $ynh_node_load_PATH corepack enable
+    env $ynh_node_load_PATH npm install -g corepack@latest
+    ynh_exec_warn_less ynh_exec_as "$app" env "$ynh_node_load_PATH" NODE_ENV=production COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm install --frozen-lockfile --aggregate-output
+popd
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression --message="Reloading NGINX web server and $app's service..." --weight=1
 
-ynh_systemd_action --service_name="$app" --action="start" --log_path="systemd" --line_match="All workers started"
+ynh_systemd_action --service_name="$app" --action="start" --log_path="systemd" --line_match="ow listening on port"
 
 ynh_systemd_action --service_name=nginx --action=reload
 
