@@ -45,6 +45,7 @@ systemctl enable "$app.service" --quiet
 yunohost service add "$app" --description="A interplanetary blogging platform" --log="/var/log/$app/$app.log"
 
 ynh_restore_file --origin_path="/etc/logrotate.d/$app"
+ynh_restore_file --origin_path="/var/log/$app/"
 
 pushd "$install_dir"
     ynh_use_nodejs
