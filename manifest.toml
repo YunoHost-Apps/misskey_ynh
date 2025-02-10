@@ -50,6 +50,7 @@ ram.runtime = "50M"
     [resources.sources.emojis]
     url = "https://github.com/misskey-dev/emojis/archive/cae981eb4c5189ea9ea3230e83b876a5068df7d1.tar.gz"
     sha256 = "ae155e4bf26bbce83e67db34b353613e1ad90ea27da20fc2d74df93b3a5e3d12"
+    autoupdate.upstream = "https://github.com/misskey-dev/emojis"
     autoupdate.strategy = "latest_github_commit"
 
     [resources.system_user]
