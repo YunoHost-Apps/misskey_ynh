@@ -3,9 +3,19 @@
 test_format = 1.0
 
 [default]
-    exclude = ["change_url"]
+
     # ------------
     # Tests to run
     # ------------
+
+    exclude = ["change_url"]
+
+    # -------------------------------
+    # Default args to use for install
+    # -------------------------------
+
+    # -------------------------------
+    # Commits to test upgrade from
+    # -------------------------------
 
     test_upgrade_from.d0b5378eb020818020114d647a56158caed1600e.name = "12.109.2~ynh1"
