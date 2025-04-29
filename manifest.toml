@@ -19,7 +19,8 @@ cpe = "cpe:2.3:a:misskey:misskey"
 fund = "https://patreon.com/syuilo"
 
 [integration]
-yunohost = ">= 11.2.12"
+yunohost = ">= 12.0.14"
+helpers_version = "2.1"
 architectures = ["amd64", "arm64"]
 multi_instance = true
 
@@ -56,6 +57,7 @@ ram.runtime = "50M"
     [resources.system_user]
 
     [resources.install_dir]
+    group = "www-data:r-x"
 
     [resources.permissions]
     main.url = "/"
