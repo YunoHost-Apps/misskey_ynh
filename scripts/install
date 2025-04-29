@@ -45,6 +45,7 @@ pushd "$install_dir"
     ynh_hide_warnings ynh_exec_as_app "node_load_PATH" NODE_ENV=production pnpm install --frozen-lockfile --aggregate-output
     ynh_hide_warnings ynh_exec_as_app "node_load_PATH" NODE_ENV=production pnpm build
     ynh_hide_warnings ynh_exec_as_app "node_load_PATH" NODE_ENV=production pnpm migrate
+    ynh_hide_warnings ynh_exec_as_app "node_load_PATH" NODE_ENV=production pnpm prune
 popd
 
 #=================================================
