@@ -47,7 +47,9 @@ ynh_restore "/var/log/$app/"
 pushd "$install_dir"
     corepack enable
     ynh_hide_warnings npm install -g corepack@latest
-    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production pnpm install --frozen-lockfile --aggregate-output
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production pnpm install --frozen-lockfile --aggregate-output --omit=dev
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production pnpm prune --prod
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production pnpm store prune
 popd
 
 #=================================================
