@@ -50,9 +50,6 @@ pushd "$install_dir"
     #remove unneeded files
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production pnpm prune
     ynh_hide_warnings ynh_exec_as_app pnpm store prune
-    ynh_safe_rm src
-    ynh_safe_rm server
-    ynh_safe_rm .next/cache
 popd
 
 #=================================================
