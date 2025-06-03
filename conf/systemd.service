@@ -7,9 +7,9 @@ Type=simple
 User=__APP__
 Group=__APP__
 WorkingDirectory=__INSTALL_DIR__/
-Environment="__YNH_NODE_LOAD_PATH__"
+Environment="PATH=__PATH_WITH_NODEJS__"
 Environment="NODE_ENV=production"
-ExecStart=__NODEJS_PATH__/pnpm run start
+ExecStart=__NODEJS_DIR__/pnpm run start
 TimeoutSec=60
 Restart=always
 StandardOutput=append:/var/log/__APP__/__APP__.log

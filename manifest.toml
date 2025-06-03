@@ -7,7 +7,7 @@ name = "Misskey"
 description.en = "Microblogging platform"
 description.fr = "Platforme de Microblogging"
 
-version = "2025.3.1~ynh1"
+version = "2025.6.0~ynh1"
 
 maintainers = []
 
@@ -19,7 +19,8 @@ cpe = "cpe:2.3:a:misskey:misskey"
 fund = "https://patreon.com/syuilo"
 
 [integration]
-yunohost = ">= 11.2.12"
+yunohost = ">= 12.0.12"
+helpers_version = "2.1"
 architectures = ["amd64", "arm64"]
 multi_instance = true
 
@@ -43,8 +44,8 @@ ram.runtime = "50M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2025.3.1.tar.gz"
-    sha256 = "aa278860c91ad3cc9469f5ba5ce90f2db15503203bad6939c7987d1da4936101"
+    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2025.6.0.tar.gz"
+    sha256 = "3d2892cbedd343db35c389e3c38295d4abffa7c15768a92ee682bea68ac9b83a"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.emojis]
@@ -56,6 +57,7 @@ ram.runtime = "50M"
     [resources.system_user]
 
     [resources.install_dir]
+    group = "www-data:r-x"
 
     [resources.permissions]
     main.url = "/"
