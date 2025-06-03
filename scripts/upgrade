@@ -21,7 +21,7 @@ fi
 ynh_script_progression "Stopping $app's systemd service..."
 
 # Stop bservice before backup, to not loose message in case of failed upgrade and restore
-ynh_systemctl --service="$app" --action="stop" --log_path=systemd
+ynh_systemctl --service="$app" --action="stop"
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
@@ -43,14 +43,25 @@ ynh_script_progression "Upgrading source files..."
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".config/default.yml"
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R "$app:www-data" "$install_dir"
+ynh_setup_source --dest_dir="$install_dir/fluent-emojis" --source_id="emojis"
+
 #=================================================
 # BUILD APP
 #=================================================
 ynh_script_progression "Building app..."
 
-misskey_build
+pushd "$install_dir"
+    corepack enable
+    export CYPRESS_INSTALL_BINARY=0
+    ynh_hide_warnings npm install -g corepack@latest
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm install --frozen-lockfile --aggregate-output
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm build
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm migrate
+    
+    #remove unneeded files
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production pnpm prune
+    ynh_hide_warnings ynh_exec_as_app pnpm store prune
+popd
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
@@ -72,7 +83,7 @@ ynh_config_add_logrotate
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service="$app" --action="start" --log_path=systemd --wait_until="All workers started"
+ynh_systemctl --service="$app" --action="start" --wait_until="ow listening on port"
 
 #=================================================
 # END OF SCRIPT
