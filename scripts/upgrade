@@ -4,7 +4,7 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 
-source _common.sh
+
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -31,9 +31,9 @@ ynh_systemctl --service="$app" --action="stop"
 #=================================================
 # UPGRADE DEPENDENCIES
 #=================================================
-ynh_script_progression "Upgrading NodeJS..."
+#REMOVEME? ynh_script_progression "Upgrading NodeJS..."
 
-ynh_nodejs_install
+#REMOVEME? ynh_nodejs_install
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
