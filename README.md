@@ -11,12 +11,16 @@ It shall NOT be edited by hand.
 Microblogging platform
 
 [![🌐 Official app website](https://img.shields.io/badge/Official_app_website-darkgreen?style=for-the-badge)](https://misskey-hub.net/)
-[![Version: 2025.6.0~ynh1](https://img.shields.io/badge/Version-2025.6.0~ynh1-rgba(0,150,0,1)?style=for-the-badge)](https://ci-apps.yunohost.org/ci/apps/misskey/)
+[![Version: 2025.8.0~ynh1](https://img.shields.io/badge/Version-2025.8.0~ynh1-rgb(18,138,11)?style=for-the-badge)](https://ci-apps.yunohost.org/ci/apps/misskey/)
 
 <div align="center">
 <a href="https://apps.yunohost.org/app/misskey"><img height="100px" src="https://github.com/YunoHost/yunohost-artwork/raw/refs/heads/main/badges/neopossum-badges/badge_more_info_on_the_appstore.svg"/></a>
 <a href="https://github.com/YunoHost-Apps/misskey_ynh/issues"><img height="100px" src="https://github.com/YunoHost/yunohost-artwork/raw/refs/heads/main/badges/neopossum-badges/badge_report_an_issue.svg"/></a>
 </div>
+
+
+## Screenshots
+![Screenshot of Misskey](./doc/screenshots/screenshot-desktop.png)
 
 ## 📦 Developer info
 

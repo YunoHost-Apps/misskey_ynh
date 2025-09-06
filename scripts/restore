@@ -4,17 +4,7 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 
-# Keep this path for calling _common.sh inside the execution's context of backup and restore scripts
-source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
-
-#=================================================
-# REINSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression "Reinstalling NodeJS..."
-
-# Define and install dependencies
-ynh_nodejs_install
 
 #=================================================
 # RESTORE THE APP MAIN DIR

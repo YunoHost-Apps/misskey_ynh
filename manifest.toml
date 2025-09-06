@@ -7,7 +7,7 @@ name = "Misskey"
 description.en = "Microblogging platform"
 description.fr = "Platforme de Microblogging"
 
-version = "2025.6.0~ynh1"
+version = "2025.8.0~ynh1"
 
 maintainers = []
 
@@ -19,13 +19,12 @@ cpe = "cpe:2.3:a:misskey:misskey"
 fund = "https://patreon.com/syuilo"
 
 [integration]
-yunohost = ">= 12.0.12"
+yunohost = ">= 12.1.17"
 helpers_version = "2.1"
 architectures = ["amd64", "arm64"]
 multi_instance = true
 
 ldap = false
-
 sso = true
 
 disk = "50M"
@@ -44,8 +43,8 @@ ram.runtime = "50M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2025.6.0.tar.gz"
-    sha256 = "3d2892cbedd343db35c389e3c38295d4abffa7c15768a92ee682bea68ac9b83a"
+    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2025.8.0.tar.gz"
+    sha256 = "b5bdef2c12a2eacbe157d26a7d03b1a8682889693b2713c4ade77641321ac9fd"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.emojis]
@@ -78,3 +77,6 @@ ram.runtime = "50M"
 
     [resources.database]
     type = "postgresql"
+
+    [resources.nodejs]
+    version = "22"

@@ -4,7 +4,6 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 
-source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -32,14 +31,6 @@ ynh_config_remove_nginx
 ynh_script_progression "Removing the redis database..."
 
 ynh_redis_remove_db "$redis_db"
-
-#=================================================
-# REMOVE DEPENDENCIES
-#=================================================
-ynh_script_progression "Removing NodeJS..."
-
-# Remove metapackage and its dependencies
-ynh_nodejs_remove
 
 #=================================================
 # END OF SCRIPT
