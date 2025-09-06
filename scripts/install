@@ -4,15 +4,7 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 
-
 source /usr/share/yunohost/helpers
-
-#=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-#REMOVEME? ynh_script_progression "Installing NodeJS..."
-
-#REMOVEME? ynh_nodejs_install
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE

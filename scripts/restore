@@ -4,17 +4,7 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 
-
-
 source /usr/share/yunohost/helpers
-
-#=================================================
-# REINSTALL DEPENDENCIES
-#=================================================
-#REMOVEME? ynh_script_progression "Reinstalling NodeJS..."
-
-# Define and install dependencies
-#REMOVEME? ynh_nodejs_install
 
 #=================================================
 # RESTORE THE APP MAIN DIR

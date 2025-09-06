@@ -4,7 +4,6 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 
-
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -22,18 +21,6 @@ ynh_script_progression "Stopping $app's systemd service..."
 
 # Stop bservice before backup, to not loose message in case of failed upgrade and restore
 ynh_systemctl --service="$app" --action="stop"
-
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-# ynh_script_progression "Ensuring downward compatibility..."
-
-#=================================================
-# UPGRADE DEPENDENCIES
-#=================================================
-#REMOVEME? ynh_script_progression "Upgrading NodeJS..."
-
-#REMOVEME? ynh_nodejs_install
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
