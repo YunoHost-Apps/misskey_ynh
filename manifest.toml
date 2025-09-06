@@ -19,13 +19,12 @@ cpe = "cpe:2.3:a:misskey:misskey"
 fund = "https://patreon.com/syuilo"
 
 [integration]
-yunohost = ">= 12.0.12"
+yunohost = ">= 12.1.17"
 helpers_version = "2.1"
 architectures = ["amd64", "arm64"]
 multi_instance = true
 
 ldap = false
-
 sso = true
 
 disk = "50M"
@@ -78,3 +77,6 @@ ram.runtime = "50M"
 
     [resources.database]
     type = "postgresql"
+
+    [resources.nodejs]
+    version = "22"
