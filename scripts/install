@@ -38,7 +38,7 @@ pushd "$install_dir"
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm install --frozen-lockfile --aggregate-output
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm build
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm migrate
-    
+
     #remove unneeded files
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production pnpm prune
     ynh_hide_warnings ynh_exec_as_app pnpm store prune
@@ -65,7 +65,7 @@ ynh_config_add_logrotate
 ynh_script_progression "Starting $app's systemd service..."
 
 # Start a systemd service
-ynh_systemctl --service="$app" --action="start" --wait_until="ow listening on port"
+ynh_systemctl  --action="start" --wait_until="ow listening on port"
 
 #=================================================
 # END OF SCRIPT
