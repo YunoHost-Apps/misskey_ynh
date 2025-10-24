@@ -46,6 +46,16 @@ ynh_script_progression "Restoring the PostgreSQL database..."
 
 ynh_psql_db_shell < ./db.sql
 
+pushd "$install_dir"
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm run clean-all
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm rebuild    
+    # ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm migrate
+
+    #remove unneeded files
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production pnpm prune
+    ynh_hide_warnings ynh_exec_as_app pnpm store prune
+popd
+
 #=================================================
 # RESTORE SYSTEM CONFIGURATIONS
 #=================================================
