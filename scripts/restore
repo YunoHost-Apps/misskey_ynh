@@ -11,16 +11,25 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Restoring the app main directory..."
 
-ynh_restore "$install_dir"
+# ynh_restore "$install_dir"
+
+#=================================================
+# DOWNLOAD, CHECK AND UNPACK SOURCE
+#=================================================
+ynh_script_progression "Setting up source files..."
+
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source --dest_dir="$install_dir"
+ynh_setup_source --dest_dir="$install_dir/fluent-emojis" --source_id="emojis"
+
 
 pushd "$install_dir"
     corepack enable
     export CYPRESS_INSTALL_BINARY=0
     ynh_hide_warnings npm install -g corepack@latest
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm install --frozen-lockfile --aggregate-output
-    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm run clean-all
-    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm rebuild    
-    # ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm migrate
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm build    
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm migrate
 
     #remove unneeded files
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production pnpm prune
