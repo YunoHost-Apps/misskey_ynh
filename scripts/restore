@@ -13,6 +13,7 @@ ynh_script_progression "Restoring the app main directory..."
 
 # ynh_restore "$install_dir"
 
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
@@ -22,6 +23,8 @@ ynh_script_progression "Setting up source files..."
 ynh_setup_source --dest_dir="$install_dir"
 ynh_setup_source --dest_dir="$install_dir/fluent-emojis" --source_id="emojis"
 
+
+ynh_restore "$install_dir/.config/default.yml"
 
 pushd "$install_dir"
     corepack enable
