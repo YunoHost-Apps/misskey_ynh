@@ -17,8 +17,9 @@ pushd "$install_dir"
     corepack enable
     export CYPRESS_INSTALL_BINARY=0
     ynh_hide_warnings npm install -g corepack@latest
-    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm install --frozen-lockfile --aggregate-output    
-    # ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm build    
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm install --frozen-lockfile --aggregate-output
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm run clean-all
+    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm rebuild    
     # ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm migrate
 
     #remove unneeded files
@@ -46,7 +47,6 @@ yunohost service add "$app" --description="A interplanetary blogging platform" -
 
 ynh_restore "/etc/logrotate.d/$app"
 ynh_restore "/var/log/$app/"
-chown -R $app:$app "/var/log/$app"
 
 #=================================================
 # START SYSTEMD SERVICE
