@@ -27,10 +27,6 @@ ynh_script_progression "Restoring system configurations related to $app..."
 
 ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 
-ynh_restore "/etc/systemd/system/$app.service"
-systemctl enable "$app.service" --quiet
-yunohost service add "$app" --description="A interplanetary blogging platform" --log="/var/log/$app/$app.log"
-
 ynh_restore "/etc/logrotate.d/$app"
 ynh_restore "/var/log/$app/"
 
@@ -45,14 +41,21 @@ pushd "$install_dir"
     ynh_hide_warnings ynh_exec_as_app pnpm store prune
 popd
 
+chown -R "$app:$app" "$install_dir" 
+chown -R "$app:$app" "/var/log/$app" 
+
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Reloading NGINX web server and $app's service..."
 
-ynh_systemctl --service="$app" --action="start" --log_path="systemd" --wait_until="ow listening on port"
-
 ynh_systemctl --service=nginx --action=reload
+
+ynh_restore "/etc/systemd/system/$app.service"
+systemctl enable "$app.service" --quiet
+yunohost service add "$app" --description="A interplanetary blogging platform" --log="/var/log/$app/$app.log"
+
+ynh_systemctl --service="$app" --action="start" --log_path="systemd" --wait_until="ow listening on port"
 
 #=================================================
 # END OF SCRIPT
