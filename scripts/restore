@@ -25,6 +25,7 @@ ynh_psql_db_shell < ./db.sql
 #=================================================
 ynh_script_progression "Restoring system configurations related to $app..."
 
+ynh_add_swap --size=4096
 ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 
 ynh_restore "/etc/logrotate.d/$app"
