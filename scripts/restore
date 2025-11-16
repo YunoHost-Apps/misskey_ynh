@@ -36,13 +36,13 @@ pushd "$install_dir"
     ynh_hide_warnings npm install -g corepack@latest
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm install --frozen-lockfile --aggregate-output
 
-    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm build
-    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm migrate
-    
     #remove unneeded files
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production pnpm prune
     ynh_hide_warnings ynh_exec_as_app pnpm store prune
 popd
+
+chown -R "$app:$app" "$install_dir" 
+chown -R "$app:$app" "/var/log/$app" 
 
 #=================================================
 # START SYSTEMD SERVICE
