@@ -40,6 +40,11 @@ systemctl enable "$app.service" --quiet
 yunohost service add "$app" --description="A interplanetary blogging platform" --log="/var/log/$app/$app.log"
 
 ynh_restore "/etc/logrotate.d/$app"
+
+#=================================================
+# RESTORE VARIOUS FILES
+#=================================================
+
 ynh_restore "/var/log/$app/"
 
 #=================================================
