@@ -7,7 +7,7 @@ name = "Misskey"
 description.en = "Microblogging platform"
 description.fr = "Platforme de Microblogging"
 
-version = "2025.6.3~ynh1"
+version = "2025.12.2~ynh1"
 
 maintainers = []
 
@@ -19,18 +19,17 @@ cpe = "cpe:2.3:a:misskey:misskey"
 fund = "https://patreon.com/syuilo"
 
 [integration]
-yunohost = ">= 12.0.12"
+yunohost = ">= 12.1.17"
 helpers_version = "2.1"
 architectures = ["amd64", "arm64"]
 multi_instance = true
 
 ldap = false
-
 sso = true
 
-disk = "50M"
-ram.build = "50M"
-ram.runtime = "50M"
+disk = "5G"
+ram.build = "2G"
+ram.runtime = "700M"
 
 [install]
     [install.domain]
@@ -44,8 +43,8 @@ ram.runtime = "50M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2025.6.3.tar.gz"
-    sha256 = "2bd987f34b5b09d7c79d5c18d8299cbf6de2400c6a3891a32b3710bcadd8eb1b"
+    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2025.12.2.tar.gz"
+    sha256 = "691e25af142540a4440470b68daa0661a2f0429656089697e8a7b3840c235523"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.emojis]
@@ -71,10 +70,8 @@ ram.runtime = "50M"
         "redis-server"
     ]
 
-    [resources.apt.extras.yarn]
-    repo = "deb https://dl.yarnpkg.com/debian/ stable main"
-    key = "https://dl.yarnpkg.com/debian/pubkey.gpg"
-    packages = ["yarn"]
-
     [resources.database]
     type = "postgresql"
+
+    [resources.nodejs]
+    version = "22"

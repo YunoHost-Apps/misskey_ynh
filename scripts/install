@@ -4,15 +4,14 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 
-source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression "Installing NodeJS..."
+ynh_script_progression "Installing dependencies..."
 
-ynh_nodejs_install
+ynh_hide_warnings corepack enable && corepack prepare pnpm@latest --activate
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -40,9 +39,6 @@ ynh_config_add --template="default.yml" --destination="$install_dir/.config/defa
 ynh_script_progression "Building app..."
 
 pushd "$install_dir"
-    corepack enable
-    export CYPRESS_INSTALL_BINARY=0
-    ynh_hide_warnings npm install -g corepack@latest
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm install --frozen-lockfile --aggregate-output
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm build
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm migrate
@@ -73,7 +69,7 @@ ynh_config_add_logrotate
 ynh_script_progression "Starting $app's systemd service..."
 
 # Start a systemd service
-ynh_systemctl --service="$app" --action="start" --wait_until="ow listening on port"
+ynh_systemctl --service="$app" --action="start" #--wait_until="ow listening on port"
 
 #=================================================
 # END OF SCRIPT

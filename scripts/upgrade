@@ -4,7 +4,6 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 
-source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -16,24 +15,19 @@ if ynh_app_upgrading_from_version_before 12.105.0~ynh1; then
 fi
 
 #=================================================
+# INSTALL DEPENDENCIES
+#=================================================
+ynh_script_progression "Installing dependencies..."
+
+ynh_hide_warnings corepack enable && corepack prepare pnpm@latest --activate
+
+#=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Stopping $app's systemd service..."
 
 # Stop bservice before backup, to not loose message in case of failed upgrade and restore
 ynh_systemctl --service="$app" --action="stop"
-
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-# ynh_script_progression "Ensuring downward compatibility..."
-
-#=================================================
-# UPGRADE DEPENDENCIES
-#=================================================
-ynh_script_progression "Upgrading NodeJS..."
-
-ynh_nodejs_install
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -50,9 +44,6 @@ ynh_setup_source --dest_dir="$install_dir/fluent-emojis" --source_id="emojis"
 ynh_script_progression "Building app..."
 
 pushd "$install_dir"
-    corepack enable
-    export CYPRESS_INSTALL_BINARY=0
-    ynh_hide_warnings npm install -g corepack@latest
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm install --frozen-lockfile --aggregate-output
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm build
     ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm migrate
@@ -72,6 +63,7 @@ ynh_config_add_nginx
 
 # Create a dedicated systemd config
 ynh_config_add_systemd
+
 yunohost service add "$app" --description="A interplanetary blogging platform" --log="/var/log/$app/$app.log"
 
 # Use logrotate to manage app-specific logfile(s)
@@ -82,7 +74,7 @@ ynh_config_add_logrotate
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service="$app" --action="start" --wait_until="ow listening on port"
+ynh_systemctl --service="$app" --action="start" #--wait_until="ow listening on port"
 
 #=================================================
 # END OF SCRIPT
