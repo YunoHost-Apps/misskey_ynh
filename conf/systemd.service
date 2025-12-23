@@ -10,7 +10,7 @@ WorkingDirectory=__INSTALL_DIR__/
 Environment="PATH=__PATH_WITH_NODEJS__"
 Environment="NODE_ENV=production"
 ExecStart=__NODEJS_DIR__/pnpm run start
-TimeoutSec=60
+TimeoutSec=600
 Restart=always
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
