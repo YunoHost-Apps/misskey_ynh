@@ -7,7 +7,7 @@ name = "Misskey"
 description.en = "Microblogging platform"
 description.fr = "Platforme de Microblogging"
 
-version = "2025.8.0~ynh1"
+version = "2025.12.2~ynh1"
 
 maintainers = []
 
@@ -27,9 +27,9 @@ multi_instance = true
 ldap = false
 sso = true
 
-disk = "50M"
-ram.build = "50M"
-ram.runtime = "50M"
+disk = "5G"
+ram.build = "2G"
+ram.runtime = "700M"
 
 [install]
     [install.domain]
@@ -43,8 +43,8 @@ ram.runtime = "50M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2025.8.0.tar.gz"
-    sha256 = "b5bdef2c12a2eacbe157d26a7d03b1a8682889693b2713c4ade77641321ac9fd"
+    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2025.12.2.tar.gz"
+    sha256 = "691e25af142540a4440470b68daa0661a2f0429656089697e8a7b3840c235523"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.emojis]
@@ -69,11 +69,6 @@ ram.runtime = "50M"
         "postgresql",
         "redis-server"
     ]
-
-    [resources.apt.extras.yarn]
-    repo = "deb https://dl.yarnpkg.com/debian/ stable main"
-    key = "https://dl.yarnpkg.com/debian/pubkey.gpg"
-    packages = ["yarn"]
 
     [resources.database]
     type = "postgresql"
