@@ -7,6 +7,13 @@
 source /usr/share/yunohost/helpers
 
 #=================================================
+# INSTALL DEPENDENCIES
+#=================================================
+ynh_script_progression "Installing dependencies..."
+
+ynh_hide_warnings corepack enable && corepack prepare pnpm@latest --activate
+
+#=================================================
 # RESTORE THE APP MAIN DIR
 #=================================================
 ynh_script_progression "Restoring the app main directory..."
@@ -33,17 +40,6 @@ yunohost service add "$app" --description="A interplanetary blogging platform" -
 
 ynh_restore "/etc/logrotate.d/$app"
 ynh_restore "/var/log/$app/"
-
-#pushd "$install_dir"
-#    corepack enable
-#    export CYPRESS_INSTALL_BINARY=0
-#    ynh_hide_warnings npm install -g corepack@latest
-#    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production CYPRESS_INSTALL_BINARY=0 NODE_OPTIONS="--max-old-space-size=3000" pnpm install --frozen-lockfile --aggregate-output
-
-    #remove unneeded files
-#    ynh_hide_warnings ynh_exec_as_app NODE_ENV=production pnpm prune
-#    ynh_hide_warnings ynh_exec_as_app pnpm store prune
-#popd
 
 #=================================================
 # START SYSTEMD SERVICE
