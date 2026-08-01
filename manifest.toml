@@ -7,7 +7,7 @@ name = "Misskey"
 description.en = "Microblogging platform"
 description.fr = "Platforme de Microblogging"
 
-version = "2026.6.0~ynh2"
+version = "2026.7.0~ynh1"
 
 maintainers = []
 
@@ -43,13 +43,13 @@ ram.runtime = "700M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2026.6.0.tar.gz"
-    sha256 = "b8fc0e67eab9e36bd8fc392ae1541271b1afdb7e11a86150c639255dd3ee9994"
+    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2026.7.0.tar.gz"
+    sha256 = "7a80a57cf500acfbb14427c8b186d94e0f0aabe47711f3bb19d41a374cc1468e"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.emojis]
-    url = "https://github.com/misskey-dev/emojis/archive/0263758d84972268f7b8f103aa080b9e4f7d2e8f.tar.gz"
-    sha256 = "9225f02ed6c7d5c73d0e436eba1232ff46edc3fa2013833797db22904c4534e7"
+    url = "https://github.com/misskey-dev/emojis/archive/50a35aacccecadc973247fbb1c070256d7039a9d.tar.gz"
+    sha256 = "760d9ba8d5eb6a8f9b815f51605f5de0a85cb32d2632996d0c98674effc97134"
     autoupdate.upstream = "https://github.com/misskey-dev/emojis"
     autoupdate.strategy = "latest_github_commit"
 
