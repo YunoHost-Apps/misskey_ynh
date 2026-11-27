@@ -7,7 +7,7 @@ name = "Misskey"
 description.en = "Microblogging platform"
 description.fr = "Platforme de Microblogging"
 
-version = "2026.11.0~ynh1"
+version = "2026.11.1~ynh1"
 
 maintainers = []
 
@@ -43,8 +43,8 @@ ram.runtime = "700M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2026.11.0.tar.gz"
-    sha256 = "c8a48602bb32fb762d8acb276c266cbcc7beb0dddeb9b616d8c465b52b7a8501"
+    url = "https://github.com/misskey-dev/misskey/archive/refs/tags/2026.11.1.tar.gz"
+    sha256 = "66a1eb8f952f073090fbb05335b234bdc1f874696c0e00dca337fe7c47a8a4d4"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.sources.emojis]
